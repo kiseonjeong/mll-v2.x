@@ -9,3 +9,5 @@
 *.pch
 *.log
 *.lastbuildstate
+*.idb
+*.obj

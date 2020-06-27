@@ -1,25 +1,25 @@
-﻿빌드 시작: 2020-06-27 오전 11:19:11
-     1>2 노드의 "C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트(Rebuild 대상)입니다.
+﻿빌드 시작: 2020-06-27 오후 6:34:45
+     1>2 노드의 "D:\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트(Rebuild 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Release-MT\mll.pch" /Fo"x64\Release-MT\\" /Fd"x64\Release-MT\vc110.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Release-MT\mll.pch" /Fo"x64\Release-MT\\" /Fd"x64\Release-MT\vc110.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
          stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Release-MT\mll.pch" /Fo"x64\Release-MT\\" /Fd"x64\Release-MT\vc110.pdb" /Gd /TP /errorReport:prompt DistanceMeasure.cpp KNearestNeighbor.cpp Mllclassifier.cpp Mlldataset.cpp Mllutility.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Release-MT\mll.pch" /Fo"x64\Release-MT\\" /Fd"x64\Release-MT\vc110.pdb" /Gd /TP /errorReport:prompt DistanceMeasure.cpp KNearestNeighbor.cpp Mllclassifier.cpp Mlldataset.cpp Mllutility.cpp
          DistanceMeasure.cpp
          KNearestNeighbor.cpp
          Mllclassifier.cpp
          Mlldataset.cpp
          Mllutility.cpp
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\Lib.exe /OUT:"C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\x64\Release-MT\mll.lib" nml.lib /LIBPATH:"..\x64\Release-MT" /NOLOGO /MACHINE:X64 /LTCG "x64\Release-MT\DistanceMeasure.obj"
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\Lib.exe /OUT:"D:\Project\C++\New\mll\x64\Release-MT\mll.lib" nml.lib /LIBPATH:"..\x64\Release-MT" /NOLOGO /MACHINE:X64 /LTCG "x64\Release-MT\DistanceMeasure.obj"
          "x64\Release-MT\KNearestNeighbor.obj"
          "x64\Release-MT\Mllclassifier.obj"
          "x64\Release-MT\Mlldataset.obj"
          "x64\Release-MT\Mllutility.obj"
          "x64\Release-MT\stdafx.obj"
          x64\Release-MT\stdafx.obj을(를) 바꾸고 있습니다.
-         mll.vcxproj -> C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\x64\Release-MT\mll.lib
-     1>"C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+         mll.vcxproj -> D:\Project\C++\New\mll\x64\Release-MT\mll.lib
+     1>"D:\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:01.46
+경과 시간: 00:00:01.28

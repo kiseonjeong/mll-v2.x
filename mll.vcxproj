@@ -261,6 +261,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\mll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

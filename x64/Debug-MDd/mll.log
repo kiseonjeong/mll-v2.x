@@ -1,0 +1,26 @@
+﻿빌드 시작: 2020-06-27 오전 11:18:52
+     1>2 노드의 "C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트(Rebuild 대상)입니다.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug-MDd\mll.pch" /Fo"x64\Debug-MDd\\" /Fd"x64\Debug-MDd\vc110.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug-MDd\mll.pch" /Fo"x64\Debug-MDd\\" /Fd"x64\Debug-MDd\vc110.pdb" /Gd /TP /errorReport:prompt DistanceMeasure.cpp KNearestNeighbor.cpp Mllclassifier.cpp Mlldataset.cpp Mllutility.cpp
+         DistanceMeasure.cpp
+         KNearestNeighbor.cpp
+         Mllclassifier.cpp
+         Mlldataset.cpp
+         Mllutility.cpp
+         코드를 생성하고 있습니다...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\Lib.exe /OUT:"C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\x64\Debug-MDd\mll.lib" nml.lib /LIBPATH:"..\x64\Debug-MDd" /NOLOGO /MACHINE:X64 "x64\Debug-MDd\DistanceMeasure.obj"
+         "x64\Debug-MDd\KNearestNeighbor.obj"
+         "x64\Debug-MDd\Mllclassifier.obj"
+         "x64\Debug-MDd\Mlldataset.obj"
+         "x64\Debug-MDd\Mllutility.obj"
+         "x64\Debug-MDd\stdafx.obj"
+         x64\Debug-MDd\stdafx.obj을(를) 바꾸고 있습니다.
+         mll.vcxproj -> C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\x64\Debug-MDd\mll.lib
+     1>"C:\Users\Glen\Desktop\Temporary\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:01.61

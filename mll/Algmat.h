@@ -1,5 +1,5 @@
-#ifndef NUMAT_H
-#define NUMAT_H
+#ifndef ALGMAT_H
+#define ALGMAT_H
 
 namespace nml
 {

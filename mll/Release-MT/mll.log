@@ -1,5 +1,5 @@
-﻿빌드 시작: 2020-06-27 오후 6:33:52
-     1>2 노드의 "D:\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트(Rebuild 대상)입니다.
+﻿빌드 시작: 2020-06-28 오전 1:19:32
+     1>2 노드의 "D:\Project\C++\online\mll\mll\mll.vcxproj" 프로젝트(Rebuild 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\mll /Z7 /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release-MT\mll.pch" /Fo"Release-MT\\" /Fd"Release-MT\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
@@ -10,16 +10,16 @@
          Mlldataset.cpp
          Mllutility.cpp
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"D:\Project\C++\New\mll\Release-MT\mll.lib" nml.lib /LIBPATH:"..\Release-MT" /NOLOGO /LTCG "Release-MT\DistanceMeasure.obj"
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"D:\Project\C++\online\mll\Release-MT\mll.lib" nml.lib /LIBPATH:"..\Release-MT" /NOLOGO /LTCG "Release-MT\DistanceMeasure.obj"
          "Release-MT\KNearestNeighbor.obj"
          "Release-MT\Mllclassifier.obj"
          "Release-MT\Mlldataset.obj"
          "Release-MT\Mllutility.obj"
          "Release-MT\stdafx.obj"
          Release-MT\stdafx.obj을(를) 바꾸고 있습니다.
-         mll.vcxproj -> D:\Project\C++\New\mll\Release-MT\mll.lib
-     1>"D:\Project\C++\New\mll\mll\mll.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
+         mll.vcxproj -> D:\Project\C++\online\mll\Release-MT\mll.lib
+     1>"D:\Project\C++\online\mll\mll\mll.vcxproj" 프로젝트를 빌드했습니다(Rebuild 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:01.29
+경과 시간: 00:00:02.78

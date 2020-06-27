@@ -1,0 +1,11 @@
+
+*.ilk
+*.pdb
+*.ipch
+*.opensdf
+*.sdf
+*.suo
+*.tlog
+*.pch
+*.log
+*.lastbuildstate

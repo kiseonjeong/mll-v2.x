@@ -9,3 +9,5 @@
 *.idb
 *.obj
 *.opensdf
+*.sdf
+*.suo

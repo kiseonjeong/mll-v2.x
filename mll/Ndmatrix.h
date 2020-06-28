@@ -40,8 +40,20 @@ namespace nml
 		ndmatrix& operator=(const ndmatrix& obj);
 		ndmatrix operator+(const ndmatrix& mat) const;
 		ndmatrix operator+(const double val) const;
+		ndmatrix operator+(const float val) const { return add(val); }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix operator+(const int val) const { return add(val); }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix operator+(const short val) const { return add(val); }			// explicit operator to avoid conflict with casting operator (S16)
+		ndmatrix operator+(const unsigned short val) const { return add(val); }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix operator+(const char val) const { return add(val); }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix operator+(const unsigned char val) const { return add(val); }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix& operator+=(const ndmatrix& mat);
 		ndmatrix& operator+=(const double val);
+		ndmatrix& operator+=(const float val) { *this = add(val); return *this; }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix& operator+=(const int val) { *this = add(val); return *this; }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix& operator+=(const short val) { *this = add(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator+=(const unsigned short val) { *this = add(val); return *this; }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix& operator+=(const char val) { *this = add(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator+=(const unsigned char val) { *this = add(val); return *this; }			// explicit operator to avoid conflict with casting operator (U8)
 		friend ndmatrix operator+(const double val, const ndmatrix& mat)
 		{
 			// Check a status
@@ -56,10 +68,28 @@ namespace nml
 
 			return result;
 		}
+		friend ndmatrix operator+(const float val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (F32)
+		friend ndmatrix operator+(const int val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (S32)
+		friend ndmatrix operator+(const short val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (S16)
+		friend ndmatrix operator+(const unsigned short val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (U16)
+		friend ndmatrix operator+(const char val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (S8)
+		friend ndmatrix operator+(const unsigned char val, const ndmatrix& mat) { return (double)val + mat; }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix operator-(const ndmatrix& mat) const;
 		ndmatrix operator-(const double val) const;
+		ndmatrix operator-(const float val) const { return sub(val); }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix operator-(const int val) const { return sub(val); }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix operator-(const short val) const { return sub(val); }			// explicit operator to avoid conflict with casting operator (S16)
+		ndmatrix operator-(const unsigned short val) const { return sub(val); }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix operator-(const char val) const { return sub(val); }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix operator-(const unsigned char val) const { return sub(val); }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix& operator-=(const ndmatrix& mat);
 		ndmatrix& operator-=(const double val);
+		ndmatrix& operator-=(const float val) { *this = sub(val); return *this; }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix& operator-=(const int val) { *this = sub(val); return *this; }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix& operator-=(const short val) { *this = sub(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator-=(const unsigned short val) { *this = sub(val); return *this; }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix& operator-=(const char val) { *this = sub(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator-=(const unsigned char val) { *this = sub(val); return *this; }			// explicit operator to avoid conflict with casting operator (U8)
 		friend ndmatrix operator-(const double val, const ndmatrix& mat)
 		{
 			// Check a status
@@ -74,10 +104,28 @@ namespace nml
 
 			return result;
 		}
+		friend ndmatrix operator-(const float val, const ndmatrix& mat) { return (double)val - mat; }			// explicit operator to avoid conflict with casting operator (F32)
+		friend ndmatrix operator-(const int val, const ndmatrix& mat) { return (double)val - mat; }			// explicit operator to avoid conflict with casting operator (S32)
+		friend ndmatrix operator-(const short val, const ndmatrix& mat) { return (double)val - mat; }			// explicit operator to avoid conflict with casting operator (S16)
+		friend ndmatrix operator-(const unsigned short val, const ndmatrix& mat) { return (double)val - mat; }			// explicit operator to avoid conflict with casting operator (U16)
+		friend ndmatrix operator-(const char val, const ndmatrix& mat) { return (double)val - mat; }			// explicit operator to avoid conflict with casting operator (S8)
+		friend ndmatrix operator-(const unsigned char val, const ndmatrix& mat) { return (double)val - mat; }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix operator*(const ndmatrix& mat) const;
 		ndmatrix operator*(const double val) const;
+		ndmatrix operator*(const float val) const { return mul(val); }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix operator*(const int val) const { return mul(val); }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix operator*(const short val) const { return mul(val); }			// explicit operator to avoid conflict with casting operator (S16)
+		ndmatrix operator*(const unsigned short val) const { return mul(val); }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix operator*(const char val) const { return mul(val); }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix operator*(const unsigned char val) const { return mul(val); }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix& operator*=(const ndmatrix& mat);
 		ndmatrix& operator*=(const double val);
+		ndmatrix& operator*=(const float val) { *this = mul(val); return *this; }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix& operator*=(const int val) { *this = mul(val); return *this; }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix& operator*=(const short val) { *this = mul(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator*=(const unsigned short val) { *this = mul(val); return *this; }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix& operator*=(const char val) { *this = mul(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator*=(const unsigned char val) { *this = mul(val); return *this; }			// explicit operator to avoid conflict with casting operator (U8)
 		friend ndmatrix operator*(const double val, const ndmatrix& mat)
 		{
 			// Check a status
@@ -92,10 +140,28 @@ namespace nml
 
 			return result;
 		}
+		friend ndmatrix operator*(const float val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (F32)
+		friend ndmatrix operator*(const int val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (S32)
+		friend ndmatrix operator*(const short val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (S16)
+		friend ndmatrix operator*(const unsigned short val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (U16)
+		friend ndmatrix operator*(const char val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (S8)
+		friend ndmatrix operator*(const unsigned char val, const ndmatrix& mat) { return (double)val * mat; }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix operator/(const ndmatrix& mat) const;
 		ndmatrix operator/(const double val) const;
+		ndmatrix operator/(const float val) const { return div(val); }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix operator/(const int val) const { return div(val); }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix operator/(const short val) const { return div(val); }			// explicit operator to avoid conflict with casting operator (S16)
+		ndmatrix operator/(const unsigned short val) const { return div(val); }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix operator/(const char val) const { return div(val); }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix operator/(const unsigned char val) const { return div(val); }			// explicit operator to avoid conflict with casting operator (U8)
 		ndmatrix& operator/=(const ndmatrix& mat);
 		ndmatrix& operator/=(const double val);
+		ndmatrix& operator/=(const float val) { *this = div(val); return *this; }			// explicit operator to avoid conflict with casting operator (F32)
+		ndmatrix& operator/=(const int val) { *this = div(val); return *this; }			// explicit operator to avoid conflict with casting operator (S32)
+		ndmatrix& operator/=(const short val) { *this = div(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator/=(const unsigned short val) { *this = div(val); return *this; }			// explicit operator to avoid conflict with casting operator (U16)
+		ndmatrix& operator/=(const char val) { *this = div(val); return *this; }			// explicit operator to avoid conflict with casting operator (S8)
+		ndmatrix& operator/=(const unsigned char val) { *this = div(val); return *this; }			// explicit operator to avoid conflict with casting operator (U8)
 		friend const ndmatrix operator/(const double val, const ndmatrix& mat)
 		{
 			// Check a status
@@ -114,6 +180,12 @@ namespace nml
 
 			return result;
 		}
+		friend ndmatrix operator/(const float val, const ndmatrix& mat) { return (double)val / mat; }			// explicit operator to avoid conflict with casting operator (F32)
+		friend ndmatrix operator/(const int val, const ndmatrix& mat) { return (double)val / mat; }			// explicit operator to avoid conflict with casting operator (S32)
+		friend ndmatrix operator/(const short val, const ndmatrix& mat) { return (double)val / mat; }			// explicit operator to avoid conflict with casting operator (S16)
+		friend ndmatrix operator/(const unsigned short val, const ndmatrix& mat) { return (double)val / mat; }			// explicit operator to avoid conflict with casting operator (U16)
+		friend ndmatrix operator/(const char val, const ndmatrix& mat) { return (double)val / mat; }			// explicit operator to avoid conflict with casting operator (S8)
+		friend ndmatrix operator/(const unsigned char val, const ndmatrix& mat) { return (double)val / mat; }			// explicit operator to avoid conflict with casting operator (U8)
 		friend ndmatrix operator-(const ndmatrix& mat)
 		{
 			// Check a status

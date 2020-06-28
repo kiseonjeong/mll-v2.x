@@ -8,5 +8,6 @@
 #include "Mllclassifier.h"
 #include "DistanceMeasure.h"
 #include "KNearestNeighbor.h"
+#include "NaiveBayesian.h"
 
 #endif

@@ -15,7 +15,7 @@ namespace mll
 		void condition(const int K, const measure& meas);			// Set a train condition
 		void train(const mlldataset& dataset);			// Train the dataset
 		void train(const mlldataset& dataset, const int K, const measure& meas);			// Train the dataset
-		const nml::algmat predict(const nml::algmat& x);			// Predict a response
+		const double predict(const nml::algmat& x);			// Predict a response
 		const int open(const std::string path, const std::string prefix = "");			// Open the trained parameters
 		const int save(const std::string path, const std::string prefix = "");			// Save the trained parameters
 

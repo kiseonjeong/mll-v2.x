@@ -49,6 +49,7 @@ namespace nml
 		// Operators
 	public:
 		algmat& operator=(const algmat& obj);
+		operator algmat&();
 
 		// Constructors & Destructor
 	public:

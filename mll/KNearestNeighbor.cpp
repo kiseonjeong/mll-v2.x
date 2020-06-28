@@ -44,9 +44,6 @@ namespace mll
 
 	KNN& KNN::operator=(const KNN& obj)
 	{
-		// Set an object
-		setObject();
-
 		// Copy the object
 		copyObject(obj);
 
@@ -58,15 +55,7 @@ namespace mll
 		// Set the parameters
 		setType(*this);
 		K = 1;
-
-		// Set the memories
 		meas = nullptr;
-		minVec.release();
-		maxVec.release();
-		M.release();
-		X.release();
-		T.release();
-		C.release();
 	}
 
 	void KNN::copyObject(const object& obj)
@@ -188,7 +177,7 @@ namespace mll
 		}
 	}
 
-	const algmat KNN::predict(const algmat& x)
+	const double KNN::predict(const algmat& x)
 	{
 		// Check the normalization flag
 		algmat xp = x;
@@ -252,11 +241,7 @@ namespace mll
 			}
 		}
 
-		// Get an argmax
-		algmat result(msize(1));
-		result[0] = C[maxIndex];
-
-		return result;
+		return C[maxIndex];
 	}
 
 	void KNN::convertScale(algmat& x) const

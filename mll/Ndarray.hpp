@@ -50,7 +50,7 @@ namespace nml
 		tidx = 0;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N>::operator var&() 
+	template<typename var, const unsigned int N> ndarray<var, N>::operator var&()
 	{
 		// Get a value
 		var& val = tdata[tidx];

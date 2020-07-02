@@ -11,8 +11,8 @@ namespace nml
 
 		// Functions
 	public:
-		const std::string getType() const;			// Get the object type
-		template<typename T> bool isEqualType(const T& var) const;			// Compare the objects
+		inline const std::string getType() const;			// Get the object type
+		template<typename T> inline bool isEqualType(const T& var) const;			// Compare the objects
 
 		// Operators
 	public:
@@ -30,10 +30,10 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const object& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
-		template<typename T> void setType(const T& var);			// Set a object type
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const object& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
+		template<typename T> inline void setType(const T& var);			// Set a object type
 
 	};
 }

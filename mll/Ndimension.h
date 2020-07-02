@@ -1,8 +1,6 @@
 #ifndef NDIMENSION_H
 #define NDIMENSION_H
 
-#include <iostream>
-
 namespace nml
 {
 	// The dimension for array
@@ -10,7 +8,7 @@ namespace nml
 	{
 		// Variables
 	public:
-		const std::vector<int>& d;			// dimension information
+		const numem<int>& d;			// dimension information
 		prop::get<int> N;			// number of dimensions
 
 		// Functions
@@ -26,18 +24,18 @@ namespace nml
 		// Operators
 	public:
 		dim& operator=(const dim& obj);
-		const int operator[](const int idx) const;
+		const int& operator[](const int idx) const;
 
 		// Constructors & Destructor
 	public:
 		dim();
-		dim(const int N, ...);
+		explicit dim(const int N, ...);
 		dim(const dim& obj);
 		~dim();
 
 		// Variables
-	public:
-		std::vector<int> _d;			// dimension information
+	private:
+		numem<int> _d;			// dimension information
 		int _N;			// number of dimensions
 		int len;			// length of dimensions
 

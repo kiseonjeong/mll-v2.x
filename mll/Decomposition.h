@@ -17,7 +17,7 @@ namespace nml
 
 		// Operators
 	public:
-		virtual algmat operator[](const int idx) const;			// Get the decomposition result
+		virtual const algmat& operator[](const int idx) const;			// Get the decomposition result
 
 		// Variables
 	protected:
@@ -69,9 +69,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		void factorize(const algmat& mat);			// Factorize the matrix
 
 	};
@@ -104,9 +104,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		const algmat reduction(const algmat& mat, const int flag) const;			// Reduce the matrix
 		const algmat houseHolder(const algmat& mat) const;			// Convert the matrix using House Holder Transform
 		const algmat reflection(const algmat& mat, const int length) const;			// Convert the matrix using House Holder Transform
@@ -143,9 +143,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		inline void copyObject(const object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		const bool isConvergence(const algmat& curr, const algmat& prev) const;			// Check the matrix is convergence or not
 
 		// Variables
@@ -172,7 +172,7 @@ namespace nml
 		// Operators
 	public:
 		SVD& operator=(const SVD& obj);
-		algmat operator[](const int idx) const;
+		const algmat& operator[](const int idx) const;
 
 		// Constructors & Destructor
 	public:
@@ -187,7 +187,7 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		inline void setObject();			// Set an object
 
 	};
 }

@@ -60,9 +60,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		void calculate();			// Calculate the coefficients
 
 	};
@@ -96,9 +96,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		void calculate(const algmat& X, const algmat& Y);			// Calculate the coefficients
 		const double slope(const double x0, const double y0, const double x1, const double y1) const;			// Calculate the slope
 
@@ -133,9 +133,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		const double calculate(const double x, const int idx) const;			// Calculate the coefficients
 		const algmat coeff() const;			// Get the estimated coefficients (Prohibit this access)
 

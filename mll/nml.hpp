@@ -10,6 +10,7 @@
 #include <string>
 #include "Property.h"
 #include "Object.h"
+#include "Numem.h"
 #include "Ndimension.h"
 #include "Ndarray.h"
 #include "Ndmatrix.h"

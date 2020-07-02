@@ -18,6 +18,21 @@ namespace nml
 		create(di);
 	}
 
+	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const dim& di, const var& val) : dm(_dm)
+	{
+		// Set an object
+		setObject();
+
+		// Check a dimension value
+		assert(di.N == N);
+
+		// Create an array
+		create(di);
+
+		// Set the array
+		set(val);
+	}
+
 	template<typename var, const unsigned int N> ndarray<var, N>::ndarray(const ndarray<var, N>& obj) : dm(_dm)
 	{
 		// Set an object
@@ -41,40 +56,52 @@ namespace nml
 		return *this;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::operator=(const var val)
+	template<typename var, const unsigned int N> const ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx) const
 	{
-		// Set a value
-		tdata[tidx] = val;
-
-		// Initialize the temporary index
-		tidx = 0;
-	}
-
-	template<typename var, const unsigned int N> ndarray<var, N>::operator var&()
-	{
-		// Get a value
-		var& val = tdata[tidx];
-
-		// Initialize the temporary index
-		tidx = 0;
-
-		return val;
-	}
-
-	template<typename var, const unsigned int N> ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx) const
-	{
-		// Check the index
+		// Check an address
 		int addr = idx * step;
-		assert(idx >= 0 && idx < _dm.length());
+		assert(idx >= 0 && idx < dlen);
 
 		// Set a 1 dimensional index
-		ndarray<var, N - 1>& _sub = (ndarray<var, N - 1>&)sub;
+		ndarray<var, N - 1>& _sub = const_cast<ndarray<var, N - 1>&>(sub);
 		_sub.subdata(&ddata[addr], idx);
 
-		return _sub;
+		// Get a sub-dimensional array
+		return sub;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::setObject()
+	template<typename var, const unsigned int N> ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx)
+	{
+		// Check an address
+		int addr = idx * step;
+		assert(idx >= 0 && idx < dlen);
+
+		// Set a 1 dimensional index
+		sub.subdata(&ddata[addr], idx);
+
+		// Get a sub-dimensional array
+		return sub;
+	}
+
+	template<typename var, const unsigned int N> const var& ndarray<var, N>::operator()(const int idx) const
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var, const unsigned int N> var& ndarray<var, N>::operator()(const int idx)
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var, const unsigned int N> inline void ndarray<var, N>::setObject()
 	{
 		// Initialize the parameters
 		didx = 0;
@@ -88,62 +115,53 @@ namespace nml
 		tdata = nullptr;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::copyObject(const ndarray<var, N>& obj)
+	template<typename var, const unsigned int N> inline void ndarray<var, N>::copyObject(const ndarray<var, N>& obj)
 	{
-		// Check a dimension status
-		if (obj._dm.N == N)
+		// Check a creation flag
+		bool creation = false;
+		if (_dm.N == obj._dm.N)
 		{
-			// Check a creation flag
-			bool creation = false;
-			if (_dm.N == obj._dm.N)
+			for (int i = 0; i < _dm.N; i++)
 			{
-				for (int i = 0; i < _dm.N; i++)
+				if (_dm[i] != obj._dm[i])
 				{
-					if (_dm[i] != obj._dm[i])
-					{
-						creation = true;
-						break;
-					}
-				}
-			}
-			else
-			{
-				creation = true;
-			}
-
-			// Check the data memory
-			if (obj.ddata != nullptr)
-			{
-				// Check a creation flag
-				if (creation == true)
-				{
-					// Create a new data memory
-					create(obj._dm);
-				}
-
-				// Copy the data memory
-				for (int i = 0; i < tlen; i++)
-				{
-					ddata[i] = obj.ddata[i];
+					creation = true;
+					break;
 				}
 			}
 		}
 		else
 		{
-			// Copy the value
-			tdata[tidx] = obj.tdata[obj.tidx];
+			creation = true;
+		}
+
+		// Check the data memory
+		if (obj.ddata != nullptr)
+		{
+			// Check a creation flag
+			if (creation == true)
+			{
+				// Create a new data memory
+				create(obj._dm);
+			}
+
+			// Copy the data memory
+			for (int i = 0; i < tlen; i++)
+			{
+				ddata[i] = obj.ddata[i];
+			}
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::clearObject()
+	template<typename var, const unsigned int N> inline void ndarray<var, N>::clearObject()
 	{
 		// Check a dimension status
-		if (_dm.N == N)
+		if (didx == 0)
 		{
 			// Clear the data memory
 			if (ddata != nullptr)
 			{
-				free(ddata);
+				delete[] ddata;
 			}
 
 			// Initialize the parameters
@@ -160,38 +178,42 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::create(const dim& di)
+	template<typename var, const unsigned int N> inline void ndarray<var, N>::create(const dim& di)
 	{
-		// Check a dimension status
-		if (di.N == N)
+		// Check the dimension information
+		assert(di.d.size > 0);
+
+		// Copy the dimension information
+		_dm = di;
+
+		// Calculate a data length and a width step
+		if (ddata != nullptr)
 		{
-			// Check the dimension information
-			assert(di.d.size() > 0);
-
-			// Copy the dimension information
-			_dm = di;
-
-			// Calculate a data length and a width step
-			if (ddata != nullptr)
-			{
-				free(ddata);
-				ddata = nullptr;
-			}
-			ddata = (var*)malloc(sizeof(var) * di.length());
-			didx = _dm.N - N;
-			dlen = _dm[didx];
-			step = 1;
-			for (int i = didx + 1; i < _dm.N; i++)
-			{
-				step *= _dm[i];
-			}
-			tdata = ddata;
-			tidx = 0;
-			tlen = dlen * step;
-
-			// Set sub dimensional data
-			sub.subdim(di, tdata);
+			delete[] ddata;
+			ddata = nullptr;
 		}
+		ddata = new var[di.length()];
+		didx = _dm.N - N;
+		dlen = _dm[didx];
+		step = 1;
+		for (int i = didx + 1; i < _dm.N; i++)
+		{
+			step *= _dm[i];
+		}
+		tdata = ddata;
+		tidx = 0;
+		tlen = dlen * step;
+
+		// Set sub-dimension information
+		dim sdi;
+		sdi.create(N - 1);
+		for (int i = didx + 1, j = 0; i < _dm.N; i++, j++)
+		{
+			sdi.set(j, _dm[i]);
+		}
+
+		// Set sub dimensional data
+		sub.subdim(sdi, tdata, didx);
 	}
 
 	template<typename var, const unsigned int N> void ndarray<var, N>::release()
@@ -200,10 +222,10 @@ namespace nml
 		clearObject();
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::set(const var val)
+	template<typename var, const unsigned int N> void ndarray<var, N>::set(const var& val)
 	{
 		// Check the dimension information
-		assert(_dm.d.size() > 0);
+		assert(_dm.d.size > 0);
 
 		// Set a value on the data
 		for (int i = 0; i < tlen; i++)
@@ -212,10 +234,16 @@ namespace nml
 		}
 	}
 
+	template<typename var, const unsigned int N> inline const int ndarray<var, N>::length() const
+	{
+		// Get a total length
+		return tlen;
+	}
+
 	template<typename var, const unsigned int N> var* ndarray<var, N>::ptr() const
 	{
 		// Check a dimension information
-		assert(_dm.d.size() > 0);
+		assert(_dm.d.size > 0);
 
 		// Get a data pointer
 		return ddata;
@@ -262,14 +290,14 @@ namespace nml
 	template<typename var, const unsigned int N> void ndarray<var, N>::_cout(const int nspace) const
 	{
 		// Console out the array
-		for (int i = 0; i < _dm[didx]; i++)
+		for (int i = 0; i < _dm[0]; i++)
 		{
 			if (i == 0)
 			{
 				std::cout << "[";
 			}
 			(*this)[i]._cout(nspace);
-			if (i == _dm[didx] - 1)
+			if (i == _dm[0] - 1)
 			{
 				std::cout << "]";
 			}
@@ -288,16 +316,16 @@ namespace nml
 		}
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::subdim(const dim& di, var* tdata)
+	template<typename var, const unsigned int N> void ndarray<var, N>::subdim(const dim& di, var* tdata, const int didx)
 	{
 		// Copy the dimension information
 		_dm = di;
 
 		// Calculate a data length and a width step
-		didx = _dm.N - N;
-		dlen = _dm[didx];
+		this->didx = didx + 1;
+		dlen = _dm[0];
 		step = 1;
-		for (int i = didx + 1; i < _dm.N; i++)
+		for (int i = 1; i < _dm.N; i++)
 		{
 			step *= _dm[i];
 		}
@@ -305,8 +333,16 @@ namespace nml
 		tidx = 0;
 		tlen = dlen * step;
 
+		// Set sub-dimension information
+		dim sdi;
+		sdi.create(N - 1);
+		for (int i = 1, j = 0; i < _dm.N; i++, j++)
+		{
+			sdi.set(j, _dm[i]);
+		}
+
 		// Set sub dimensional data
-		sub.subdim(di, tdata);
+		sub.subdim(sdi, tdata, this->didx);
 	}
 
 	template<typename var, const unsigned int N> void ndarray<var, N>::subdata(var* ddata, const int tidx)
@@ -336,6 +372,21 @@ namespace nml
 		create(di);
 	}
 
+	template<typename var> ndarray<var, 1>::ndarray(const dim& di, const var& val) : dm(_dm)
+	{
+		// Set an object
+		setObject();
+
+		// Check a dimension value
+		assert(di.N == 1);
+
+		// Create an array
+		create(di);
+
+		// Set the array
+		set(val);
+	}
+
 	template<typename var> ndarray<var, 1>::ndarray(const ndarray<var, 1>& obj) : dm(_dm)
 	{
 		// Copy the object
@@ -356,36 +407,43 @@ namespace nml
 		return *this;
 	}
 
-	template<typename var> void ndarray<var, 1>::operator=(const var val)
-	{
-		// Set a value
-		tdata[tidx] = val;
-
-		// Initialize the temporary index
-		tidx = 0;
-	}
-
-	template<typename var> ndarray<var, 1>::operator var&()
-	{
-		// Get a value
-		var& val = tdata[tidx];
-
-		// Initialize the temporary index
-		tidx = 0;
-
-		return val;
-	}
-
-	template<typename var> var& ndarray<var, 1>::operator[](const int idx) const
+	template<typename var> const var& ndarray<var, 1>::operator[](const int idx) const
 	{
 		// Check the index
-		assert(idx >= 0 && idx < _dm.length());
+		assert(idx >= 0 && idx < tlen);
 
 		// Get a value
 		return ddata[idx];
 	}
 
-	template<typename var> void ndarray<var, 1>::setObject()
+	template<typename var> var& ndarray<var, 1>::operator[](const int idx)
+	{
+		// Check the index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var> const var& ndarray<var, 1>::operator()(const int idx) const
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var> var& ndarray<var, 1>::operator()(const int idx)
+	{
+		// Check an index
+		assert(idx >= 0 && idx < tlen);
+
+		// Get a value
+		return ddata[idx];
+	}
+
+	template<typename var> inline void ndarray<var, 1>::setObject()
 	{
 		// Initialize the parameters
 		didx = 0;
@@ -399,62 +457,53 @@ namespace nml
 		tdata = nullptr;
 	}
 
-	template<typename var> void ndarray<var, 1>::copyObject(const ndarray<var, 1>& obj)
+	template<typename var> inline void ndarray<var, 1>::copyObject(const ndarray<var, 1>& obj)
 	{
-		// Check a dimension status
-		if (obj._dm.N == 1)
+		// Check a creation flag
+		bool creation = false;
+		if (_dm.N == obj._dm.N)
 		{
-			// Check a creation flag
-			bool creation = false;
-			if (_dm.N == obj._dm.N)
+			for (int i = 0; i < _dm.N; i++)
 			{
-				for (int i = 0; i < _dm.N; i++)
+				if (_dm[i] != obj._dm[i])
 				{
-					if (_dm[i] != obj._dm[i])
-					{
-						creation = true;
-						break;
-					}
-				}
-			}
-			else
-			{
-				creation = true;
-			}
-
-			// Check the data memory
-			if (obj.ddata != nullptr)
-			{
-				// Check a creation flag
-				if (creation == true)
-				{
-					// Create a new data memory
-					create(obj._dm);
-				}
-
-				// Copy the data memory
-				for (int i = 0; i < tlen; i++)
-				{
-					ddata[i] = obj.ddata[i];
+					creation = true;
+					break;
 				}
 			}
 		}
 		else
 		{
-			// Copy the value
-			tdata[tidx] = obj.tdata[obj.tidx];
+			creation = true;
+		}
+
+		// Check the data memory
+		if (obj.ddata != nullptr)
+		{
+			// Check a creation flag
+			if (creation == true)
+			{
+				// Create a new data memory
+				create(obj._dm);
+			}
+
+			// Copy the data memory
+			for (int i = 0; i < tlen; i++)
+			{
+				ddata[i] = obj.ddata[i];
+			}
 		}
 	}
 
-	template<typename var> void ndarray<var, 1>::clearObject()
+	template<typename var> inline void ndarray<var, 1>::clearObject()
 	{
 		// Clear the data memory
-		if (_dm.N == 1)
+		if (didx == 0)
 		{
 			// Clear the data memory
 			if (ddata != nullptr)
 			{
-				free(ddata);
+				delete[] ddata;
 			}
 
 			// Initialize the parameters
@@ -471,31 +520,27 @@ namespace nml
 		}
 	}
 
-	template<typename var> void ndarray<var, 1>::create(const dim& di)
+	template<typename var> inline void ndarray<var, 1>::create(const dim& di)
 	{
 		// Check the dimension information
-		if (di.N == 1)
+		assert(di.d.size > 0);
+
+		// Copy the dimension information
+		_dm = di;
+
+		// Calculate a data length and a width step
+		if (ddata != nullptr)
 		{
-			// Check the dimension information
-			assert(di.d.size() > 0);
-
-			// Copy the dimension information
-			_dm = di;
-
-			// Calculate a data length and a width step
-			if (ddata != nullptr)
-			{
-				free(ddata);
-				ddata = nullptr;
-			}
-			ddata = (var*)malloc(sizeof(var) * di.length());
-			didx = 0;
-			dlen = _dm[didx];
-			step = 1;
-			tdata = ddata;
-			tidx = 0;
-			tlen = dlen * step;
+			delete[] ddata;
+			ddata = nullptr;
 		}
+		ddata = new var[di.length()];
+		didx = 0;
+		dlen = _dm[didx];
+		step = 1;
+		tdata = ddata;
+		tidx = 0;
+		tlen = dlen * step;
 	}
 
 	template<typename var> void ndarray<var, 1>::release()
@@ -514,6 +559,12 @@ namespace nml
 		{
 			ddata[i] = val;
 		}
+	}
+
+	template<typename var> inline const int ndarray<var, 1>::length() const
+	{
+		// Get a total length
+		return tlen;
 	}
 
 	template<typename var> var* ndarray<var, 1>::ptr() const
@@ -566,14 +617,14 @@ namespace nml
 	template<typename var> void ndarray<var, 1>::_cout(const int nspace) const
 	{
 		// Console out the array
-		for (int i = 0; i < _dm[didx]; i++)
+		for (int i = 0; i < _dm[0]; i++)
 		{
 			if (i == 0)
 			{
 				std::cout << "[";
 			}
 			std::cout << ddata[i];
-			if (i == _dm[didx] - 1)
+			if (i == _dm[0] - 1)
 			{
 				std::cout << "]";
 			}
@@ -584,14 +635,14 @@ namespace nml
 		}
 	}
 
-	template<typename var> void ndarray<var, 1>::subdim(const dim& di, var* tdata)
+	template<typename var> void ndarray<var, 1>::subdim(const dim& di, var* tdata, const int didx)
 	{
 		// Copy the dimension information
 		_dm = di;
 
 		// Calculate a data length and a width step
-		didx = _dm.N - 1;
-		dlen = _dm[didx];
+		this->didx = didx + 1;
+		dlen = _dm[0];
 		step = 1;
 		this->tdata = tdata;
 		tidx = 0;

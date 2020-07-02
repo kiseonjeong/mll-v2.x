@@ -22,8 +22,8 @@ namespace nml
 		algmat minor(const int idx, const int axis = 0) const;			// Get a minor matrix except the selected index
 		algmat reshape(const int nrows) const;			// Reshape a matrix
 		algmat t() const;			// Transpose a matrix
-		void swap(const int fi, const int ti, const int axis = 0) const;			// Swap the matrix (fi : from index, ti : to index)
-		void sort(const bool desc = false, const int axis = 0) const;			// Sort the matrix
+		void swap(const int fi, const int ti, const int axis = 0);			// Swap the matrix (fi : from index, ti : to index)
+		void sort(const bool desc = false, const int axis = 0);			// Sort the matrix
 		algmat count(const double val, const int axis = -1) const;			// Find a value in the matrix
 		static algmat min(const algmat& mat, const int axis = -1);			// Find min. values
 		static algmat max(const algmat& mat, const int axis = -1);			// Find max. values
@@ -44,18 +44,22 @@ namespace nml
 		algmat dot(const algmat& mat) const;			// Get a dot product matrix
 		algmat cof() const;			// Get a cofactor matrix
 		algmat inv() const;			// Get an inverse matrix
-		algmat det() const;			// Get a determinant value
+		const double det() const;			// Get a determinant value
 
 		// Operators
 	public:
 		algmat& operator=(const algmat& obj);
-		operator algmat&();
+		const double& operator()(const int idx) const;			// data access operator (read)
+		double& operator()(const int idx);			// data access operator (write)
+		const double& operator()(const int idx0, const int idx1) const;			// data access operator (read)
+		double& operator()(const int idx0, const int idx1);			// data access operator (write)
 
 		// Constructors & Destructor
 	public:
 		algmat();
 		algmat(const msize& sz);
 		algmat(const msize& sz, const double val);
+		algmat(const ndarray<double, 2>& obj);
 		algmat(const ndmatrix<2>& obj);
 		algmat(const algmat& obj);
 		~algmat();
@@ -73,10 +77,10 @@ namespace nml
 		const algmat hsubmat(int bi, int ei, int ii) const;			// Horizontally, get a selected sub-matrix
 		const algmat vminor(const int idx) const;			// Vertically, get a minor matrix except the selected index
 		const algmat hminor(const int idx) const;			// Horizontally, get a minor matrix except the selected index
-		void vswap(const int fi, const int ti) const;			// Vertically, swap the matrix
-		void hswap(const int fi, const int ti) const;			// Horizontally, swap the matrix
-		void vsort(const bool desc) const;			// Vertically, sort the matrix
-		void hsort(const bool desc) const;			// Horizontally, sort the matrix
+		void vswap(const int fi, const int ti);			// Vertically, swap the matrix
+		void hswap(const int fi, const int ti);			// Horizontally, swap the matrix
+		void vsort(const bool desc);			// Vertically, sort the matrix
+		void hsort(const bool desc);			// Horizontally, sort the matrix
 		const algmat vcount(const double val) const;			// Vertically, find a value in the matrix
 		const algmat hcount(const double val) const;			// Horizontally, find a value in the matrix
 		static const algmat vmin(const algmat& mat, algmat& loc);			// Vertically, find min. values
@@ -86,7 +90,7 @@ namespace nml
 		static const algmat vsum(const algmat& mat);			// Vertically, calculate sum values
 		static const algmat hsum(const algmat& mat);			// Horizontally, calculate sum values
 		const bool isSquared() const;			// Check a squared matrix or not
-		const algmat expansion(const algmat& mat) const;			// Expand a matrix for cofactor matrix
+		const double expansion(const algmat& mat) const;			// Expand a matrix for cofactor matrix
 
 	};
 }

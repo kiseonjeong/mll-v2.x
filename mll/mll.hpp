@@ -9,5 +9,6 @@
 #include "DistanceMeasure.h"
 #include "KNearestNeighbor.h"
 #include "NaiveBayesian.h"
+#include "NormalBayesian.h"
 
 #endif

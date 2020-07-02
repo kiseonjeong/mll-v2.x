@@ -63,9 +63,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const object& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const object& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 		virtual void calculate();			// Calculate the coefficients
 
 		// Variables
@@ -107,7 +107,7 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		void inline setObject();			// Set an object
 		void calculate();			// Calculate the coefficients
 
 	};
@@ -143,9 +143,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const object& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const object& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 
 	};
 
@@ -176,7 +176,7 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		void inline setObject();			// Set an object
 
 	};
 
@@ -207,7 +207,7 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		void inline setObject();			// Set an object
 
 	};
 
@@ -242,9 +242,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		void inline setObject();			// Set an object
+		void inline copyObject(const object& obj);			// Copy the object
+		void inline clearObject();			// Clear the object
 
 	};
 
@@ -279,9 +279,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		void inline setObject();			// Set an object
+		void inline copyObject(const object& obj);			// Copy the object
+		void inline clearObject();			// Clear the object
 		void createParams(const cubic_params& params);			// Create the parameters
 		void calculate();			// Calculate the coefficients
 		const algmat condmat(const algmat& W) const;			// Get a condition matrix
@@ -326,9 +326,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const object& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const object& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 
 	};
 
@@ -359,7 +359,7 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
+		virtual inline void setObject();			// Set an object
 		const double slope(const double x0, const double y0, const double x1, const double y1) const;			// Calculate the slope
 
 	};
@@ -393,7 +393,7 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
+		virtual inline void setObject();			// Set an object
 		void copyObject(const object& obj);			// Copy the object
 
 	};
@@ -425,7 +425,7 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		void inline setObject();			// Set an object
 
 	};
 
@@ -460,9 +460,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		void inline setObject();			// Set an object
+		void inline copyObject(const object& obj);			// Copy the object
+		void inline clearObject();			// Clear the object
 		void createParams(const hermite_params& params);			// Create the hermite parameters
 		const double basis(const double x, const int idx, const int mode) const;			// Calculate a basis
 		const double tangent(const double x, const int idx) const;			// Calculate a tangent
@@ -498,9 +498,9 @@ namespace nml
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		void inline setObject();			// Set an object
+		void inline copyObject(const object& obj);			// Copy the object
+		void inline clearObject();			// Clear the object
 		void calculate();			// Calculate the coefficients
 		const algmat augment(const algmat& S) const;			// Augment the slopes on the end points
 		const double derivative(const algmat& S, const int idx) const;			// Calculate a derivative value

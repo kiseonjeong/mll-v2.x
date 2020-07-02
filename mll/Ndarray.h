@@ -12,27 +12,30 @@ namespace nml
 
 		// Functions
 	public:
-		void create(const dim& di);			// Create an array
+		inline void create(const dim& di);			// Create an array
 		void release();			// Release an array
-		void set(const var val);			// Set a value
+		void set(const var& val);			// Set a value
+		inline const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check an array
 		void cout() const;			// Console out for an array
 		void _cout(const int nspace = 0) const;			// Console out for an array
-		void subdim(const dim& di, var* tdata);			// Set sub-dimensional array
+		void subdim(const dim& di, var* tdata, const int didx);			// Set sub-dimensional array
 		void subdata(var* ddata, const int tidx);			// Set sub-dimensional data
 
 		// Operators
 	public:
-		ndarray& operator=(const ndarray& obj);
-		void operator=(const var val);
-		operator var&();
-		ndarray<var, N - 1>& operator[](const int idx) const;
+		ndarray& operator=(const ndarray& obj);			// data copy operator
+		const ndarray<var, N - 1>& operator[](const int idx) const;			// sub-dimensional array access operator (read)
+		ndarray<var, N - 1>& operator[](const int idx);			// sub-dimensional array access operator (write)
+		const var& operator()(const int idx) const;			// data access operator (read)
+		var& operator()(const int idx);			// data access operator (write)
 
 		// Constructors & Destructor
 	public:
 		ndarray();
 		ndarray(const dim& di);
+		ndarray(const dim& di, const var& val);
 		ndarray(const ndarray& obj);
 		virtual ~ndarray();
 
@@ -44,15 +47,15 @@ namespace nml
 		int dlen;			// dimensional length
 		var* ddata;			// dimensional data
 		int step;			// width step
-		int tidx;			// total index
+		int tidx;			// total index (now unused variable)
 		int tlen;			// total length
 		var* tdata;			// total data
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const ndarray& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const ndarray& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
 
 	};
@@ -66,27 +69,30 @@ namespace nml
 
 		// Functions
 	public:
-		void create(const dim& di);			// Create an array
+		inline void create(const dim& di);			// Create an array
 		void release();			// Release an array
 		void set(const var val);			// Set a value
+		inline const int length() const;			// Get a total length
 		var* ptr() const;			// Get a data pointer
 		bool empty() const;			// Check the array
 		void cout() const;			// Console out for an array
 		void _cout(const int nspace = 0) const;			// Console out for an array
-		void subdim(const dim& di, var* tdata);			// Set sub-dimensional array
+		void subdim(const dim& di, var* tdata, const int didx);			// Set sub-dimensional array
 		void subdata(var* ddata, const int tidx);			// Set sub-dimensional data
 
 		// Operators
 	public:
-		ndarray& operator=(const ndarray& obj);
-		void operator=(const var val);
-		operator var&();
-		var& operator[](const int idx) const;
+		ndarray& operator=(const ndarray& obj);			// data copy operator
+		const var& operator[](const int idx) const;			// data access operator (read)
+		var& operator[](const int idx);			// data access operator (write)
+		const var& operator()(const int idx) const;			// data access operator (read)
+		var& operator()(const int idx);			// data access operator (write)
 
 		// Constructors & Destructor
 	public:
 		ndarray();
 		ndarray(const dim& di);
+		ndarray(const dim& di, const var& val);
 		ndarray(const ndarray& obj);
 		virtual ~ndarray();
 
@@ -103,9 +109,9 @@ namespace nml
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		virtual void copyObject(const ndarray& obj);			// Copy the object
-		virtual void clearObject();			// Clear the object
+		virtual inline void setObject();			// Set an object
+		virtual inline void copyObject(const ndarray& obj);			// Copy the object
+		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
 
 	};

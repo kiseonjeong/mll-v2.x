@@ -56,24 +56,6 @@ namespace nml
 
 			return result;
 		}
-		friend ndmatrix operator+(const ndarray<double, N> mat0, const ndmatrix& mat1)
-		{
-			// Check a status
-			assert(mat0.empty() == false && mat1.empty() == false);
-			for (int i = 0; i < mat1.dm.N; i++)
-			{
-				assert(mat0.dm[i] == mat1.dm[i]);
-			}
-
-			// Calculate an addition matrix
-			ndmatrix result(mat1);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = mat0(i) + result.ddata[i];
-			}
-
-			return result;
-		}
 		ndmatrix operator-(const ndmatrix& mat) const;
 		ndmatrix operator-(const double val) const;
 		ndmatrix& operator-=(const ndmatrix& mat);
@@ -88,24 +70,6 @@ namespace nml
 			for (int i = 0; i < result.tlen; i++)
 			{
 				result.ddata[i] = val - result.ddata[i];
-			}
-
-			return result;
-		}
-		friend ndmatrix operator-(const ndarray<double, N>& mat0, const ndmatrix& mat1)
-		{
-			// Check a status
-			assert(mat0.empty() == false && mat1.empty() == false);
-			for (int i = 0; i < mat1.dm.N; i++)
-			{
-				assert(mat0.dm[i] == mat1.dm[i]);
-			}
-
-			// Calculate an addition matrix
-			ndmatrix result(mat1);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = mat0(i) - result.ddata[i];
 			}
 
 			return result;
@@ -128,24 +92,6 @@ namespace nml
 
 			return result;
 		}
-		friend ndmatrix operator*(const ndarray<double, N>& mat0, const ndmatrix& mat1)
-		{
-			// Check a status
-			assert(mat0.empty() == false && mat1.empty() == false);
-			for (int i = 0; i < mat1.dm.N; i++)
-			{
-				assert(mat0.dm[i] == mat1.dm[i]);
-			}
-
-			// Calculate an addition matrix
-			ndmatrix result(mat1);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = mat0(i) * result.ddata[i];
-			}
-
-			return result;
-		}
 		ndmatrix operator/(const ndmatrix& mat) const;
 		ndmatrix operator/(const double val) const;
 		ndmatrix& operator/=(const ndmatrix& mat);
@@ -164,28 +110,6 @@ namespace nml
 			for (int i = 0; i < result.tlen; i++)
 			{
 				result.ddata[i] = val / result.ddata[i];
-			}
-
-			return result;
-		}
-		friend ndmatrix operator/(const ndarray<double, N>& mat0, const ndmatrix& mat1)
-		{
-			// Check a status
-			assert(mat0.empty() == false && mat1.empty() == false);
-			for (int i = 0; i < mat1.dm.N; i++)
-			{
-				assert(mat0.dm[i] == mat1.dm[i]);
-			}
-			for (int i = 0; i < mat1.tlen; i++)
-			{
-				assert(mat1.ddata[i] != 0.0);
-			}
-
-			// Calculate an addition matrix
-			ndmatrix result(mat1);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = mat0(i) / result.ddata[i];
 			}
 
 			return result;

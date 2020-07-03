@@ -30,8 +30,8 @@ namespace mll
 
 		// Operators
 	public:
-		mlldataset& operator=(const mlldataset& obj);
-		nml::algmat operator[](const int idx) const;
+		mlldataset& operator=(const mlldataset& obj);			// dataset copy operator
+		const nml::algmat& operator[](const int idx) const;			// dataset access operator (read)
 
 		// Constructors & Destructor
 	public:
@@ -55,9 +55,9 @@ namespace mll
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const nml::object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const nml::object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 
 	};
 }

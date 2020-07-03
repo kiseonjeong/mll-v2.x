@@ -39,9 +39,9 @@ namespace mll
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const nml::object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const nml::object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		const int openLabelInfo(const std::string path, const std::string prefix);			// Open label information
 		const int openProbInfo(const std::string path, const std::string prefix);			// Open probability information
 

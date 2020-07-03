@@ -92,42 +92,37 @@ namespace mll
 		vcols = X.cols;
 
 		// Calculate a mean matrix
-		count.create(dim(1, C.dm.length()));
-		mean.create(dim(3, C.dm.length(), 1, vcols));
-		count.set(0);
-		mean.set(0);
+		count.create(dim(1, C.length()), 0);
+		mean.create(dim(3, C.length(), 1, vcols), 0);
 		for (int i = 0; i < vrows; i++)
 		{
 			algmat Xi = X.submat(i);
-			for (int j = 0; j < C.dm.length(); j++)
+			for (int j = 0; j < C.length(); j++)
 			{
-				if (T[i] == C[j])
+				if (T(i) == C(j))
 				{
 					count[j]++;
 					mean[j] += Xi;
 				}
 			}
 		}
-		for (int i = 0; i < C.dm.length(); i++)
+		for (int i = 0; i < C.length(); i++)
 		{
-			mean[i].cout();
 			mean[i] /= count[i];
-			mean[i].cout();
 		}
 
 		// Calculate a covariance matrix
-		cov.create(dim(3, C.dm.length(), vcols, vcols));
 		count.set(0);
-		cov.set(0);
+		cov.create(dim(3, C.length(), vcols, vcols), 0);
 		for (int i = 0; i < vrows; i++)
 		{
 			algmat Xi = X.submat(i);
-			for (int j = 0; j < C.dm.length(); j++)
+			for (int j = 0; j < C.length(); j++)
 			{
-				if (T[i] == C[j])
+				if (T(i) == C(j))
 				{
 					count[j]++;
-					cov[j] += algmat(Xi - mean[j]).t().dot(algmat(Xi - mean[j]));
+					cov[j] += algmat(Xi - mean[j]).t().dot(Xi - mean[j]);
 				}
 			}
 		}
@@ -150,9 +145,9 @@ namespace mll
 		{
 			for (int j = 0; j < C.length(); j++)
 			{
-				if (T[i] == C[j])
+				if (T(i) == C(j))
 				{
-					prior[j] += 1.0;
+					prior(j) += 1.0;
 					break;
 				}
 			}
@@ -166,22 +161,22 @@ namespace mll
 		algmat post(msize(1, C.length()));
 		for (int i = 0; i < C.length(); i++)
 		{
-			post[i] = -0.5 * (algmat(x - mean[i]).dot(algmat(icov[i])).dot(x - mean[i]).t())[0] - 0.5 * log((algmat(cov[i])).det()) + log(prior[i]);
+			post(i) = -0.5 * (algmat(x - mean[i]).dot(icov[i]).dot(algmat(x - mean[i]).t()))(0) - 0.5 * log(algmat(cov[i]).det()) + log(prior(i));
 		}
 
 		// Find an argmax value
 		int maxidx = 0;
-		double maxval = post[0];
+		double maxval = post(0);
 		for (int i = 1; i < C.length(); i++)
 		{
-			if (maxval < post[i])
+			if (maxval < post(i))
 			{
-				maxval = post[i];
+				maxval = post(i);
 				maxidx = i;
 			}
 		}
 
-		return C[maxidx];
+		return C(maxidx);
 	}
 
 	const int normalbayes::open(const string path, const string prefix)
@@ -268,7 +263,7 @@ namespace mll
 					}
 
 					// Set a value
-					C[atoi(indexStrs[1].c_str())] = atof(splitStrs[1].c_str());
+					C(atoi(indexStrs[1].c_str())) = atof(splitStrs[1].c_str());
 				}
 				break;
 			}
@@ -326,12 +321,9 @@ namespace mll
 			{
 				vcols = atoi(splitStrs[1].c_str());
 				prior = algmat::zeros(msize(1, C.length()));
-				mean = ndmatrix<3>(dim(3, C.length(), 1, vcols));
-				cov = ndmatrix<3>(dim(3, C.length(), vcols, vcols));
-				icov = ndmatrix<3>(dim(3, C.length(), vcols, vcols));
-				mean.set(0);
-				cov.set(0);
-				icov.set(0);
+				mean = ndmatrix<3>(dim(3, C.length(), 1, vcols), 0);
+				cov = ndmatrix<3>(dim(3, C.length(), vcols, vcols), 0);
+				icov = ndmatrix<3>(dim(3, C.length(), vcols, vcols), 0);
 				while (!reader.eof())
 				{
 					// Check the end of the section
@@ -355,14 +347,14 @@ namespace mll
 					{
 						if (indexStrs[0] == "Prior" && indexStrs[1] == "Prob")
 						{
-							prior[atoi(indexStrs[2].c_str())] = atof(splitStrs[1].c_str());
+							prior(atoi(indexStrs[2].c_str())) = atof(splitStrs[1].c_str());
 						}
 					}
 					else if (indexStrs.size() == 4)
 					{
 						if (indexStrs[0] == "Mean" && indexStrs[1] == "Matrix")
 						{
-							mean[atoi(indexStrs[2].c_str())][atoi(indexStrs[3].c_str())] = atof(splitStrs[1].c_str());
+							mean[atoi(indexStrs[2].c_str())][0][atoi(indexStrs[3].c_str())] = atof(splitStrs[1].c_str());
 						}
 					}
 					else if (indexStrs.size() == 5)
@@ -402,7 +394,7 @@ namespace mll
 		writer << "Num_C=" << C.length() << endl;
 		for (int i = 0; i < C.length(); i++)
 		{
-			writer << "C_" << i << "=" << C[i] << endl;
+			writer << "C_" << i << "=" << C(i) << endl;
 		}
 		writer << endl;
 
@@ -412,13 +404,13 @@ namespace mll
 		writer << "Vector_Cols=" << vcols << endl;
 		for (int i = 0; i < C.length(); i++)
 		{
-			writer << "Prior_Prob_" << i << "=" << prior[i] << endl;
+			writer << "Prior_Prob_" << i << "=" << prior(i) << endl;
 		}
 		for (int i = 0; i < C.length(); i++)
 		{
 			for (int j = 0; j < vcols; j++)
 			{
-				writer << "Mean_Matrix_" << i << "_" << j << "=" << mean[i][j] << endl;
+				writer << "Mean_Matrix_" << i << "_" << j << "=" << mean[i][0][j] << endl;
 			}
 		}
 		for (int i = 0; i < C.length(); i++)

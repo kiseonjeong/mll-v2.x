@@ -44,9 +44,9 @@ namespace mll
 
 		// Functions
 	private:
-		void setObject();			// Set an object
-		void copyObject(const nml::object& obj);			// Copy the object
-		void clearObject();			// Clear the object
+		inline void setObject();			// Set an object
+		inline void copyObject(const nml::object& obj);			// Copy the object
+		inline void clearObject();			// Clear the object
 		void createMeasure(const int type, const bool nflag, const double slope, const double intercept, const double p);			// Create a measurement for distance
 		void copyMeasure(const measure& meas);			// Copy the measurement for distance
 		void convertScale();			// Convert scale on the dataset

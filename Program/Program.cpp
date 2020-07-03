@@ -39,7 +39,7 @@ void test_knn(string trainPath, string testPath)
 	for (int i = 0; i < trainset[0].rows; i++)
 	{
 		double response = knn.predict(trainset[0].submat(i));
-		if (response != trainset[1][i])
+		if (response != trainset[1][i][0])
 		{
 			trainMissed++;
 		}
@@ -50,7 +50,7 @@ void test_knn(string trainPath, string testPath)
 	for (int i = 0; i < testset[0].rows; i++)
 	{
 		double response = knn.predict(testset[0].submat(i));
-		if (response != testset[1][i])
+		if (response != testset[1][i][0])
 		{
 			testMissed++;
 		}
@@ -79,7 +79,7 @@ void test_naivebayes(string trainPath, string testPath)
 	for (int i = 0; i < trainset[0].rows; i++)
 	{
 		double response = nb.predict(trainset[0].submat(i));
-		if (response != trainset[1][i])
+		if (response != trainset[1][i][0])
 		{
 			trainMissed++;
 		}
@@ -90,7 +90,7 @@ void test_naivebayes(string trainPath, string testPath)
 	for (int i = 0; i < testset[0].rows; i++)
 	{
 		double response = nb.predict(testset[0].submat(i));
-		if (response != testset[1][i])
+		if (response != testset[1][i][0])
 		{
 			testMissed++;
 		}
@@ -119,7 +119,7 @@ void test_normalbayes(string trainPath, string testPath)
 	for (int i = 0; i < trainset[0].rows; i++)
 	{
 		double response = nb.predict(trainset[0].submat(i));
-		if (response != trainset[1][i])
+		if (response != trainset[1][i][0])
 		{
 			trainMissed++;
 		}
@@ -130,7 +130,7 @@ void test_normalbayes(string trainPath, string testPath)
 	for (int i = 0; i < testset[0].rows; i++)
 	{
 		double response = nb.predict(testset[0].submat(i));
-		if (response != testset[1][i])
+		if (response != testset[1][i][0])
 		{
 			testMissed++;
 		}

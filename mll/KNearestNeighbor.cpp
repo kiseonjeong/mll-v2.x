@@ -32,8 +32,8 @@ namespace mll
 		// Set an object
 		setObject();
 
-		// Copy the object
-		copyObject(obj);
+		// Clone the object
+		*this = obj;
 	}
 
 	KNN::~KNN()
@@ -50,7 +50,7 @@ namespace mll
 		return *this;
 	}
 
-	void KNN::setObject()
+	inline void KNN::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -58,7 +58,7 @@ namespace mll
 		meas = nullptr;
 	}
 
-	void KNN::copyObject(const object& obj)
+	inline void KNN::copyObject(const object& obj)
 	{
 		// Do down casting
 		KNN* _obj = (KNN*)&obj;
@@ -76,7 +76,7 @@ namespace mll
 		C = _obj->C;
 	}
 
-	void KNN::clearObject()
+	inline void KNN::clearObject()
 	{
 		// Clear the memories
 		if (meas != nullptr)
@@ -171,8 +171,8 @@ namespace mll
 		{
 			for (int j = 0; j < X.rows; j++)
 			{
-				X[j][i] = (X[j][i] - minVec[i]) / (maxVec[i] - minVec[i]);
-				X[j][i] = meas->slope * X[j][i]+ meas->intercept;
+				X(j, i) = (X(j, i) - minVec(i) / (maxVec(i) - minVec(i)));
+				X(j, i) = meas->slope * X(j, i)+ meas->intercept;
 			}
 		}
 	}
@@ -201,7 +201,7 @@ namespace mll
 				if (distance[j] > delta)
 				{
 					distance.insert(distance.begin() + j, delta);
-					label.insert(label.begin() + j, T[i]);
+					label.insert(label.begin() + j, T(i));
 					maxFlag = false;
 					break;
 				}
@@ -211,18 +211,17 @@ namespace mll
 			if (maxFlag == true)
 			{
 				distance.push_back(delta);
-				label.push_back(T[i]);
+				label.push_back(T(i));
 			}
 		}
 
 		// Vote the class using nearest samples
-		ndarray<int, 1> vote(dim(1, C.dm.length()));
-		vote.set(0);
+		ndarray<int, 1> vote(dim(1, C.length()), 0);
 		for (int i = 0; i < K; i++)
 		{
-			for (int j = 0; j < C.dm.length(); j++)
+			for (int j = 0; j < C.length(); j++)
 			{
-				if (label[i] == C[j])
+				if (label[i] == C(j))
 				{
 					vote[j]++;
 				}
@@ -232,7 +231,7 @@ namespace mll
 		// Get an argument of the maxima label
 		int maxValue = vote[0];
 		int maxIndex = 0;
-		for (int i = 1; i < C.dm.length(); i++)
+		for (int i = 1; i < C.length(); i++)
 		{
 			if (maxValue < vote[i])
 			{
@@ -241,16 +240,16 @@ namespace mll
 			}
 		}
 
-		return C[maxIndex];
+		return C(maxIndex);
 	}
 
 	void KNN::convertScale(algmat& x) const
 	{
 		// Convert scale on the sample data
-		for (int i = 0; i < x.dm.length(); i++)
+		for (int i = 0; i < x.length(); i++)
 		{
-			x[i] = (x[i] - minVec[i]) / (maxVec[i] - minVec[i]);
-			x[i] = meas->slope * x[i] + meas->intercept;
+			x(i) = (x(i) - minVec(i)) / (maxVec(i) - minVec(i));
+			x(i) = meas->slope * x(i) + meas->intercept;
 		}
 	}
 
@@ -434,7 +433,7 @@ namespace mll
 					}
 
 					// Set a value
-					C[atoi(indexStrs[1].c_str())] = atof(splitStrs[1].c_str());
+					C(atoi(indexStrs[1].c_str())) = atof(splitStrs[1].c_str());
 				}
 				break;
 			}
@@ -521,26 +520,26 @@ namespace mll
 					{
 						if (indexStrs[0] == "Mean" && indexStrs[1] == "Vec")
 						{
-							M[atoi(indexStrs[2].c_str())] = atof(splitStrs[1].c_str());
+							M(atoi(indexStrs[2].c_str())) = atof(splitStrs[1].c_str());
 						}
 						else if (indexStrs[0] == "Min" && indexStrs[1] == "Vec")
 						{
-							minVec[atoi(indexStrs[2].c_str())] = atof(splitStrs[1].c_str());
+							minVec(atoi(indexStrs[2].c_str())) = atof(splitStrs[1].c_str());
 						}
 						else if (indexStrs[0] == "Max" && indexStrs[1] == "Vec")
 						{
-							maxVec[atoi(indexStrs[2].c_str())] = atof(splitStrs[1].c_str());
+							maxVec(atoi(indexStrs[2].c_str())) = atof(splitStrs[1].c_str());
 						}
 						else if (indexStrs[0] == "Label" && indexStrs[1] == "Vec")
 						{
-							T[atoi(indexStrs[2].c_str())] = atof(splitStrs[1].c_str());
+							T(atoi(indexStrs[2].c_str())) = atof(splitStrs[1].c_str());
 						}
 					}
 					else if (indexStrs.size() == 4)
 					{
 						if (indexStrs[0] == "Sample" && indexStrs[1] == "Vec")
 						{
-							X[atoi(indexStrs[2].c_str())][atoi(indexStrs[3].c_str())] = atof(splitStrs[1].c_str());
+							X(atoi(indexStrs[2].c_str()), atoi(indexStrs[3].c_str())) = atof(splitStrs[1].c_str());
 						}
 					}
 				}
@@ -586,10 +585,10 @@ namespace mll
 
 		// Save label information
 		writer << getSectionName("KNN_LABEL_INFO", prefix) << endl;
-		writer << "Num_C=" << C.dm.length() << endl;
-		for (int i = 0; i < C.dm.length(); i++)
+		writer << "Num_C=" << C.length() << endl;
+		for (int i = 0; i < C.length(); i++)
 		{
-			writer << "C_" << i << "=" << C[i] << endl;
+			writer << "C_" << i << "=" << C(i) << endl;
 		}
 		writer << endl;
 
@@ -599,26 +598,26 @@ namespace mll
 		writer << "Vector_Cols=" << X.cols << endl;
 		for (int i = 0; i < X.cols; i++)
 		{
-			writer << "Mean_Vec_" << i << "=" << M[i] << endl;
+			writer << "Mean_Vec_" << i << "=" << M(i) << endl;
 		}
 		for (int i = 0; i < X.cols; i++)
 		{
-			writer << "Min_Vec_" << i << "=" << minVec[i] << endl;
+			writer << "Min_Vec_" << i << "=" << minVec(i) << endl;
 		}
 		for (int i = 0; i < X.cols; i++)
 		{
-			writer << "Max_Vec_" << i << "=" << maxVec[i] << endl;
+			writer << "Max_Vec_" << i << "=" << maxVec(i) << endl;
 		}
 		for (int i = 0; i < X.rows; i++)
 		{
 			for (int j = 0; j < X.cols; j++)
 			{
-				writer << "Sample_Vec_" << i << "_" << j << "=" << X[i][j] << endl;
+				writer << "Sample_Vec_" << i << "_" << j << "=" << X(i, j) << endl;
 			}
 		}
 		for (int i = 0; i < X.rows; i++)
 		{
-			writer << "Label_Vec_" << i << "=" << T[i] << endl;
+			writer << "Label_Vec_" << i << "=" << T(i) << endl;
 		}
 		writer << endl;
 		writer.close();

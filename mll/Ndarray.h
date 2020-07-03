@@ -13,6 +13,7 @@ namespace nml
 		// Functions
 	public:
 		inline void create(const dim& di);			// Create an array
+		inline void create(const dim& di, const var& val);			// Create an array
 		void release();			// Release an array
 		void set(const var& val);			// Set a value
 		inline const int length() const;			// Get a total length
@@ -30,6 +31,123 @@ namespace nml
 		ndarray<var, N - 1>& operator[](const int idx);			// sub-dimensional array access operator (write)
 		const var& operator()(const int idx) const;			// data access operator (read)
 		var& operator()(const int idx);			// data access operator (write)
+		ndarray<double, N> operator+(const ndarray<double, N>& mat);
+		ndarray<double, N> operator+(const double val);
+		friend ndarray<double, N> operator+(const double val, ndarray<double, N>& mat)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = val + mat(i);
+			}
+
+			return mat;
+		}
+		friend ndarray<double, N>& operator+=(ndarray<double, N>& mat, const double val)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = mat(i) + val;
+			}
+
+			return mat;
+		}
+		ndarray<double, N> operator-(const ndarray<double, N>& mat);
+		ndarray<double, N> operator-(const double val);
+		friend ndarray<double, N> operator-(const double val, ndarray<double, N>& mat)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = val - mat(i);
+			}
+
+			return mat;
+		}
+		friend ndarray<double, N>& operator-=(ndarray<double, N>& mat, const double val)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = mat(i) - val;
+			}
+
+			return mat;
+		}
+		ndarray<double, N> operator*(const ndarray<double, N>& mat);
+		ndarray<double, N> operator*(const double val);
+		friend ndarray<double, N> operator*(const double val, ndarray<double, N>& mat)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = val * mat(i);
+			}
+
+			return mat;
+		}
+		friend ndarray<double, N>& operator*=(ndarray<double, N>& mat, const double val)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = mat(i) * val;
+			}
+
+			return mat;
+		}
+		ndarray<double, N> operator/(const ndarray<double, N>& mat);
+		ndarray<double, N> operator/(const double val);
+		friend ndarray<double, N> operator/(const double val, ndarray<double, N>& mat)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				assert(mat(i) != 0.0);
+			}
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.tlen; i++)
+			{
+				mat(i) = val / mat(i);
+			}
+
+			return mat;
+		}
+		friend ndarray<double, N>& operator/=(ndarray<double, N>& mat, const double val)
+		{
+			// Check a status
+			assert(mat.empty() == false);
+			assert(val != 0.0);
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat.length(); i++)
+			{
+				mat(i) = mat(i) / val;
+			}
+
+			return mat;
+		}
 
 		// Constructors & Destructor
 	public:
@@ -70,6 +188,7 @@ namespace nml
 		// Functions
 	public:
 		inline void create(const dim& di);			// Create an array
+		inline void create(const dim& di, const var& val);			// Create an array
 		void release();			// Release an array
 		void set(const var val);			// Set a value
 		inline const int length() const;			// Get a total length

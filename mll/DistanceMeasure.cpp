@@ -17,6 +17,7 @@ namespace mll
 	void measure::setObject()
 	{
 		// Set the parameters
+		setType(*this);
 		_type = KNN_MEASURE_UNKNOWN;
 		_nflag = false;
 		_slope = 1.0;
@@ -74,7 +75,7 @@ namespace mll
 		return *this;
 	}
 
-	void euclidean::setObject()
+	inline void euclidean::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -102,7 +103,7 @@ namespace mll
 	const double euclidean::calculate(const algmat& xi, const algmat& xj) const
 	{
 		// Calculate distance between the input dataset
-		return pow(algmat::sum(algmat::pow(algmat::abs(xi - xj), p)), 1.0 / p);
+		return pow(algmat::sum(algmat::pow(algmat::abs(xi - xj), p))(0), 1.0 / p);
 	}
 
 	manhattan::manhattan()
@@ -142,7 +143,7 @@ namespace mll
 		return *this;
 	}
 
-	void manhattan::setObject()
+	inline void manhattan::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -190,7 +191,7 @@ namespace mll
 		return *this;
 	}
 
-	void minkowski::setObject()
+	inline void minkowski::setObject()
 	{
 		// Set measurement parameters
 		setType(*this);
@@ -247,7 +248,7 @@ namespace mll
 		return *this;
 	}
 
-	void chebychev::setObject()
+	inline void chebychev::setObject()
 	{
 		// Set measurement parameters
 		setType(*this);
@@ -260,7 +261,7 @@ namespace mll
 	const double chebychev::calculate(const algmat& xi, const algmat& xj) const
 	{
 		// Calculate a distance between the input dataset
-		return algmat::max(algmat::abs(xi - xj));
+		return algmat::max(algmat::abs(xi - xj))(0);
 	}
 
 	cosine::cosine()
@@ -291,7 +292,7 @@ namespace mll
 		return *this;
 	}
 
-	void cosine::setObject()
+	inline void cosine::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -309,7 +310,7 @@ namespace mll
 	const double cosine::calculate(const algmat& xi, const algmat& xj) const
 	{
 		// Calculate a distance between the input dataset
-		return 1.0 - (xi.dot(xj.t())[0] / sqrt(xi.dot(xi.t())[0] * xj.dot(xj.t())[0]));
+		return 1.0 - (xi.dot(xj.t())(0) / sqrt(xi.dot(xi.t())(0) * xj.dot(xj.t())(0)));
 	}
 
 	correlation::correlation()
@@ -340,7 +341,7 @@ namespace mll
 		return *this;
 	}
 
-	void correlation::setObject()
+	inline void correlation::setObject()
 	{
 		// Set measurement parameters
 		setType(*this);

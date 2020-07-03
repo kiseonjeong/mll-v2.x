@@ -38,8 +38,11 @@ namespace mll
 
 	mlldataset::mlldataset(const mlldataset& obj) : X(_X), T(_T), dimension(_dimension), nsample(_nsample), C(_C), nclass(_nclass), slope(_slope), intercept(_intercept)
 	{
-		// Copy the object
-		copyObject(obj);
+		// Set an object
+		setObject();
+
+		// Clone the object
+		*this = obj;
 	}
 
 	mlldataset::~mlldataset()
@@ -56,7 +59,7 @@ namespace mll
 		return *this;
 	}
 
-	algmat mlldataset::operator[](const int idx) const
+	const algmat& mlldataset::operator[](const int idx) const
 	{
 		// Check the index
 		assert(idx >= 0 && idx < 3);
@@ -66,12 +69,11 @@ namespace mll
 		{
 		case 0: return _X;			// feature vector
 		case 1: return _T;			// target vector
-		case 2: return _C;			// class vector
-		default: return algmat();
+		default: return _C;			// class vector
 		}
 	}
 
-	void mlldataset::setObject()
+	inline void mlldataset::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -85,7 +87,7 @@ namespace mll
 		_C.release();
 	}
 
-	void mlldataset::copyObject(const object& obj)
+	inline void mlldataset::copyObject(const object& obj)
 	{
 		// Do down casting
 		mlldataset* _obj = (mlldataset*)&obj;
@@ -101,7 +103,7 @@ namespace mll
 		_C = _obj->_C;
 	}
 
-	void mlldataset::clearObject()
+	inline void mlldataset::clearObject()
 	{
 		// Clear the memories
 		_X.release();
@@ -163,17 +165,17 @@ namespace mll
 				{
 					for (int i = 0; i < _dimension; i++)
 					{
-						sampleX[i] = atof(splitStr[i].c_str());
+						sampleX(i) = atof(splitStr[i].c_str());
 					}
-					sampleT[0] = atof(splitStr[_dimension].c_str());
+					sampleT(0) = atof(splitStr[_dimension].c_str());
 				}
 				else
 				{
 					for (int i = 1; i < 1 + _dimension; i++)
 					{
-						sampleX[i - 1] = atof(splitStr[i].c_str());
+						sampleX(i - 1) = atof(splitStr[i].c_str());
 					}
-					sampleT[0] = atof(splitStr[0].c_str());
+					sampleT(0) = atof(splitStr[0].c_str());
 				}
 
 				// Save the dataset
@@ -203,7 +205,7 @@ namespace mll
 				algmat sampleX(msize(1, _dimension));
 				for (int i = 0; i < _dimension; i++)
 				{
-					sampleX[i] = atof(splitStr[i].c_str());
+					sampleX(i) = atof(splitStr[i].c_str());
 				}
 
 				// Save the dataset
@@ -224,7 +226,7 @@ namespace mll
 			_dimension = _X.cols;
 			_nsample = _X.rows;
 			_C = _T.uniq();
-			_nclass = _C.dm.length();
+			_nclass = _C.length();
 		}
 		else
 		{
@@ -232,7 +234,7 @@ namespace mll
 			_dimension = _X.cols;
 			_nsample = _X.rows;
 			_C = algmat::zeros(msize(1));
-			_nclass = _C.dm.length();
+			_nclass = _C.length();
 		}
 
 		return 0;
@@ -251,7 +253,7 @@ namespace mll
 		_dimension = _X.cols;
 		_nsample = _X.rows;
 		_C = _T.uniq();
-		_nclass = _C.dm.length();
+		_nclass = _C.length();
 	}
 
 	void mlldataset::set(const algmat& X)
@@ -264,7 +266,7 @@ namespace mll
 		_dimension = _X.cols;
 		_nsample = _X.rows;
 		_C = algmat::zeros(msize(1));
-		_nclass = _C.dm.length();
+		_nclass = _C.length();
 	}
 
 	const bool mlldataset::empty() const
@@ -328,17 +330,17 @@ namespace mll
 		for (int i = 0; i < _X.cols; i++)
 		{
 			// Find the min, max values
-			double minVal = _X[0][i];
-			double maxVal = _X[0][i];
+			double minVal = _X(0, i);
+			double maxVal = _X(0, i);
 			for (int j = 0; j < _X.rows; j++)
 			{
-				if (_X[j][i] < minVal)
+				if (_X(j, i) < minVal)
 				{
-					minVal = _X[j][i];
+					minVal = _X(j, i);
 				}
-				if (_X[j][i] > maxVal)
+				if (_X(j, i) > maxVal)
 				{
-					maxVal = _X[j][i];
+					maxVal = _X(j, i);
 				}
 			}
 
@@ -346,12 +348,12 @@ namespace mll
 			const double denom = max(maxVal - minVal, epsilon);
 			for (int j = 0; j < _X.rows; j++)
 			{
-				_X[j][i] = (_X[j][i] - minVal) / denom;
+				_X(j, i) = (_X(j, i) - minVal) / denom;
 			}
 
 			// Save the scaling value
-			_slope[i] = denom;
-			_intercept[i] = minVal;
+			_slope(i) = denom;
+			_intercept(i) = minVal;
 		}
 	}
 
@@ -369,7 +371,7 @@ namespace mll
 			double mean = 0.0;
 			for (int j = 0; j < _X.rows; j++)
 			{
-				mean += _X[j][i];
+				mean += _X(j, i);
 			}
 			mean /= _X.rows;
 
@@ -377,7 +379,7 @@ namespace mll
 			double var = 0.0;
 			for (int j = 0; j < _X.rows; j++)
 			{
-				var += (_X[j][i] - mean) * (_X[j][i] - mean);
+				var += (_X(j, i) - mean) * (_X(j, i) - mean);
 			}
 			var /= _X.rows;
 
@@ -385,12 +387,12 @@ namespace mll
 			const double denom = max(sqrt(var), epsilon);
 			for (int j = 0; j < _X.rows; j++)
 			{
-				_X[j][i] = (_X[j][i] - mean) / denom;
+				_X(j, i) = (_X(j, i) - mean) / denom;
 			}
 
 			// Save the scaling value
-			_slope[i] = denom;
-			_intercept[i] = mean;
+			_slope(i) = denom;
+			_intercept(i) = mean;
 		}
 	}
 
@@ -421,8 +423,7 @@ namespace mll
 		}
 
 		// Check the shuffling flag
-		ndarray<int, 1> index(dim(1, _nsample));
-		index.set(-1);
+		ndarray<int, 1> index(dim(1, _nsample), -1);
 		if (shuffling == true && _nclass > 1)
 		{
 			// Set sub-dataset index information
@@ -437,7 +438,7 @@ namespace mll
 					bool selection = false;
 					for (int i = 0; i < _nsample; i++)
 					{
-						if (flag[i] == false && _T[i] == _C[target % _nclass])
+						if (flag[i] == false && _T(i) == _C(target % _nclass))
 						{
 							flag[i] = true;
 							index[count] = i;
@@ -477,7 +478,7 @@ namespace mll
 				{
 					for (int k = 0; k < subX.cols; k++)
 					{
-						subX[j][k] = _X[index[l]][k];
+						subX(j, k) = _X(index[l], k);
 					}
 				}
 				algmat subT(msize(length[i], 1));
@@ -485,7 +486,7 @@ namespace mll
 				{
 					for (int k = 0; k < subT.cols; k++)
 					{
-						subT[j][k] = _T[index[l]][k];
+						subT(j, k) = _T(index[l], k);
 					}
 				}
 				subset.push_back(mlldataset(subX, subT));
@@ -500,7 +501,7 @@ namespace mll
 				{
 					for (int k = 0; k < subX.cols; k++)
 					{
-						subX[j][k] = _X[index[l]][k];
+						subX(j, k) = _X(index[l], k);
 					}
 				}
 				subset.push_back(mlldataset(subX));

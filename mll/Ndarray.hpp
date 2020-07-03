@@ -101,6 +101,147 @@ namespace nml
 		return ddata[idx];
 	}
 
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator+(const ndarray<double, N>& mat)
+	{
+		// Check a status
+		assert(empty() == false && mat.empty() == false);
+		for (int i = 0; i < _dm.N; i++)
+		{
+			assert(_dm[i] == mat.dm[i]);
+		}
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < mat.tlen; i++)
+		{
+			result.ddata[i] = ddata[i] + mat.ddata[i];
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator+(const double val)
+	{
+		// Check a status
+		assert(empty() == false);
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < tlen; i++)
+		{
+			result.ddata[i] = ddata[i] + val;
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator-(const ndarray<double, N>& mat)
+	{
+		// Check a status
+		assert(empty() == false && mat.empty() == false);
+		for (int i = 0; i < _dm.N; i++)
+		{
+			assert(_dm[i] == mat.dm[i]);
+		}
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < mat.tlen; i++)
+		{
+			result.ddata[i] = ddata[i] - mat.ddata[i];
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator-(const double val)
+	{
+		// Check a status
+		assert(empty() == false);
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < tlen; i++)
+		{
+			result.ddata[i] = ddata[i] - val;
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator*(const ndarray<double, N>& mat)
+	{
+		// Check a status
+		assert(empty() == false && mat.empty() == false);
+		for (int i = 0; i < _dm.N; i++)
+		{
+			assert(_dm[i] == mat.dm[i]);
+		}
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < mat.tlen; i++)
+		{
+			result.ddata[i] = ddata[i] * mat.ddata[i];
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator*(const double val)
+	{
+		// Check a status
+		assert(empty() == false);
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < tlen; i++)
+		{
+			result.ddata[i] = ddata[i] * val;
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator/(const ndarray<double, N>& mat)
+	{
+		// Check a status
+		assert(empty() == false && mat.empty() == false);
+		for (int i = 0; i < _dm.N; i++)
+		{
+			assert(_dm[i] == mat.dm[i]);
+		}
+		for (int i = 0; i < mat.tlen; i++)
+		{
+			assert(mat(i) != 0.0);
+		}
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < mat.tlen; i++)
+		{
+			result.ddata[i] = ddata[i] / mat.ddata[i];
+		}
+
+		return result;
+	}
+
+	template<typename var, const unsigned int N> ndarray<double, N> ndarray<var, N>::operator/(const double val)
+	{
+		// Check a status
+		assert(empty() == false);
+		assert(val != 0.0);
+
+		// Calculate an addition matrix
+		ndarray<double, N> result(_dm);
+		for (int i = 0; i < tlen; i++)
+		{
+			result.ddata[i] = ddata[i] / val;
+		}
+
+		return result;
+	}
+
 	template<typename var, const unsigned int N> inline void ndarray<var, N>::setObject()
 	{
 		// Initialize the parameters
@@ -214,6 +355,15 @@ namespace nml
 
 		// Set sub dimensional data
 		sub.subdim(sdi, tdata, didx);
+	}
+
+	template<typename var, const unsigned int N> inline void ndarray<var, N>::create(const dim& di, const var& val)
+	{
+		// Create an array
+		create(di);
+
+		// Set the array
+		set(val);
 	}
 
 	template<typename var, const unsigned int N> void ndarray<var, N>::release()
@@ -543,6 +693,15 @@ namespace nml
 		tlen = dlen * step;
 	}
 
+	template<typename var> inline void ndarray<var, 1>::create(const dim& di, const var& val)
+	{
+		// Create an array
+		create(di);
+
+		// Set the array
+		set(val);
+	}
+
 	template<typename var> void ndarray<var, 1>::release()
 	{
 		// Clear the object
@@ -552,7 +711,7 @@ namespace nml
 	template<typename var> void ndarray<var, 1>::set(const var val)
 	{
 		// Check the dimension information
-		assert(_dm.d.size() > 0);
+		assert(_dm.d.size > 0);
 
 		// Set a value on the data
 		for (int i = 0; i < tlen; i++)

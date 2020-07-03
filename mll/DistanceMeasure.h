@@ -46,8 +46,8 @@ namespace mll
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
-		void copyObject(const nml::object& obj);			// Copy the object
+		virtual inline void setObject();			// Set an object
+		inline void copyObject(const nml::object& obj);			// Copy the object
 
 	};
 
@@ -80,7 +80,7 @@ namespace mll
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
+		virtual inline void setObject();			// Set an object
 		virtual void set(const bool nflag, const double slope, const double intercept, const double p);			// Set measurement parameters
 
 	};
@@ -105,7 +105,7 @@ namespace mll
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		inline void setObject();			// Set an object
 
 	};
 
@@ -137,7 +137,7 @@ namespace mll
 
 		// Functions
 	private:
-		void setObject();			// Set an object
+		inline void setObject();			// Set an object
 
 	};
 
@@ -169,7 +169,7 @@ namespace mll
 
 		// Functions
 	private:		
-		void setObject();			// Set an object
+		inline void setObject();			// Set an object
 
 	};
 
@@ -200,7 +200,7 @@ namespace mll
 
 		// Functions
 	protected:
-		virtual void setObject();			// Set an object
+		inline virtual void setObject();			// Set an object
 		void set(const bool norm, const double gain, const double offset, const double p);			// Set measurement parameters
 
 	};
@@ -223,9 +223,8 @@ namespace mll
 
 
 		// Functions
-	private:
-		// Set an object
-		void setObject();
+	private:		
+		inline void setObject();			// Set an object
 
 	};
 }

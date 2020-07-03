@@ -53,6 +53,78 @@ namespace nml
 		double& operator()(const int idx);			// data access operator (write)
 		const double& operator()(const int idx0, const int idx1) const;			// data access operator (read)
 		double& operator()(const int idx0, const int idx1);			// data access operator (write)
+		friend ndarray<double, 2>& operator+=(ndarray<double, 2>& mat0, const algmat& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			for (int i = 0; i < mat0.dm.N; i++)
+			{
+				assert(mat0.dm[i] == mat1.dm[i]);
+			}
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat0.length(); i++)
+			{
+				mat0(i) += mat1(i);
+			}
+
+			return mat0;
+		}
+		friend ndarray<double, 2>& operator-=(ndarray<double, 2>& mat0, const algmat& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			for (int i = 0; i < mat0.dm.N; i++)
+			{
+				assert(mat0.dm[i] == mat1.dm[i]);
+			}
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat0.length(); i++)
+			{
+				mat0(i) -= mat1(i);
+			}
+
+			return mat0;
+		}
+		friend ndarray<double, 2>& operator*=(ndarray<double, 2>& mat0, const algmat& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			for (int i = 0; i < mat0.dm.N; i++)
+			{
+				assert(mat0.dm[i] == mat1.dm[i]);
+			}
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat0.length(); i++)
+			{
+				mat0(i) *= mat1(i);
+			}
+
+			return mat0;
+		}
+		friend ndarray<double, 2>& operator/=(ndarray<double, 2>& mat0, const algmat& mat1)
+		{
+			// Check a status
+			assert(mat0.empty() == false && mat1.empty() == false);
+			for (int i = 0; i < mat0.dm.N; i++)
+			{
+				assert(mat0.dm[i] == mat1.dm[i]);
+			}
+			for (int i = 0; i < mat1.length(); i++)
+			{
+				assert(mat1(i) != 0.0);
+			}
+
+			// Calculate an addition matrix
+			for (int i = 0; i < mat0.length(); i++)
+			{
+				mat0(i) /= mat1(i);
+			}
+
+			return mat0;
+		}
 
 		// Constructors & Destructor
 	public:

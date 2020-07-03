@@ -41,7 +41,7 @@ namespace mll
 		return *this;
 	}
 
-	void naivebayes::setObject()
+	inline void naivebayes::setObject()
 	{
 		// Set the parameters
 		setType(*this);
@@ -49,7 +49,7 @@ namespace mll
 		vcols = -1;
 	}
 
-	void naivebayes::copyObject(const object& obj)
+	inline void naivebayes::copyObject(const object& obj)
 	{
 		// Do down casting
 		naivebayes* _obj = (naivebayes*)&obj;
@@ -65,7 +65,7 @@ namespace mll
 		C = _obj->C;
 	}
 
-	void naivebayes::clearObject()
+	inline void naivebayes::clearObject()
 	{
 		// Clear the memories
 		prior.release();
@@ -84,14 +84,14 @@ namespace mll
 		vcols = X.cols;
 
 		// Calculate the prior probabilities
-		prior = algmat(msize(1, C.dm.length()), 0.0);
+		prior = algmat(msize(1, C.length()), 0.0);
 		for (int i = 0; i < vrows; i++)
 		{
-			for (int j = 0; j < C.dm.length(); j++)
+			for (int j = 0; j < C.length(); j++)
 			{
-				if (T[i] == C[j])
+				if (T(i) == C(j))
 				{
-					prior[j] += 1.0;
+					prior(j) += 1.0;
 					break;
 				}
 			}
@@ -99,32 +99,32 @@ namespace mll
 		prior /= vrows;
 
 		// Calculate the conditional probabilities
-		denom = algmat(msize(1, C.dm.length()), 0.0);
-		cond = algmat(msize(C.dm.length(), vcols), 0.0);
+		denom = algmat(msize(1, C.length()), 0.0);
+		cond = algmat(msize(C.length(), vcols), 0.0);
 		for (int i = 0; i < vrows; i++)
 		{
 			// Get a sample vector
 			algmat Xi = X.submat(i);
 
 			// Check the label
-			for (int j = 0; j < C.dm.length(); j++)
+			for (int j = 0; j < C.length(); j++)
 			{
-				if (T[i] == C[j])
+				if (T(i) == C(j))
 				{
 					for (int k = 0; k < vcols; k++)
 					{
-						cond[j][k] += Xi[k];
+						cond(j, k) += Xi(k);
 					}
-					denom[j] += algmat::sum(Xi);
+					denom(j) += algmat::sum(Xi)(0);
 					break;
 				}
 			}
 		}
-		for (int i = 0; i < C.dm.length(); i++)
+		for (int i = 0; i < C.length(); i++)
 		{
 			for (int j = 0; j < vcols; j++)
 			{
-				cond[i][j] = log(cond[i][j] / denom[i]);
+				cond(i, j) = log(cond(i, j) / denom(i));
 			}
 		}
 	}
@@ -132,25 +132,25 @@ namespace mll
 	const double naivebayes::predict(const algmat& x)
 	{
 		// Calculate a posterior probability
-		algmat post(msize(1, C.dm.length()), 0.0);
-		for (int i = 0; i < C.dm.length(); i++)
+		algmat post(msize(1, C.length()), 0.0);
+		for (int i = 0; i < C.length(); i++)
 		{
-			post[i] = x.dot(cond.submat(i).t())[0] + log(prior[i]);
+			post(i) = x.dot(cond.submat(i).t())(0) + log(prior(i));
 		}
 
 		// Find an argmax value
 		int maxidx = 0;
-		double maxval = post[0];
-		for (int i = 1; i < C.dm.length(); i++)
+		double maxval = post(0);
+		for (int i = 1; i < C.length(); i++)
 		{
-			if (maxval < post[i])
+			if (maxval < post(i))
 			{
-				maxval = post[i];
+				maxval = post(i);
 				maxidx = i;
 			}
 		}
 
-		return C[maxidx];
+		return C(maxidx);
 	}
 
 	const int naivebayes::open(const string path, const string prefix)
@@ -237,7 +237,7 @@ namespace mll
 					}
 
 					// Set a value
-					C[atoi(indexStrs[1].c_str())] = atof(splitStrs[1].c_str());
+					C(atoi(indexStrs[1].c_str())) = atof(splitStrs[1].c_str());
 				}
 				break;
 			}
@@ -294,8 +294,8 @@ namespace mll
 			if (splitStrs[0] == "Vector_Cols")
 			{
 				vcols = atoi(splitStrs[1].c_str());
-				prior = algmat::zeros(msize(1, C.dm.length()));
-				cond = algmat::zeros(msize(C.dm.length(), vcols));
+				prior = algmat::zeros(msize(1, C.length()));
+				cond = algmat::zeros(msize(C.length(), vcols));
 				while (!reader.eof())
 				{
 					// Check the end of the section
@@ -319,14 +319,14 @@ namespace mll
 					{
 						if (indexStrs[0] == "Prior" && indexStrs[1] == "Prob")
 						{
-							prior[atoi(indexStrs[2].c_str())] = atof(splitStrs[1].c_str());
+							prior(atoi(indexStrs[2].c_str())) = atof(splitStrs[1].c_str());
 						}
 					}
 					else if (indexStrs.size() == 5)
 					{
 						if (indexStrs[0] == "Log" && indexStrs[1] == "Conditional" && indexStrs[2] == "Prob")
 						{
-							cond[atoi(indexStrs[3].c_str())][atoi(indexStrs[4].c_str())] = atof(splitStrs[1].c_str());
+							cond(atoi(indexStrs[3].c_str()), atoi(indexStrs[4].c_str())) = atof(splitStrs[1].c_str());
 						}
 					}
 				}
@@ -349,10 +349,10 @@ namespace mll
 
 		// Save label information
 		writer << getSectionName("NAIVE_BAYESIAN_LABEL_INFO", prefix) << endl;
-		writer << "Num_C=" << C.dm.length() << endl;
-		for (int i = 0; i < C.dm.length(); i++)
+		writer << "Num_C=" << C.length() << endl;
+		for (int i = 0; i < C.length(); i++)
 		{
-			writer << "C_" << i << "=" << C[i] << endl;
+			writer << "C_" << i << "=" << C(i) << endl;
 		}
 		writer << endl;
 
@@ -360,15 +360,15 @@ namespace mll
 		writer << getSectionName("NAIVE_BAYESIAN_PROB_INFO", prefix) << endl;
 		writer << "Vector_Rows=" << vrows << endl;
 		writer << "Vector_Cols=" << vcols << endl;
-		for (int i = 0; i < C.dm.length(); i++)
+		for (int i = 0; i < C.length(); i++)
 		{
-			writer << "Prior_Prob_" << i << "=" << prior[i] << endl;
+			writer << "Prior_Prob_" << i << "=" << prior(i) << endl;
 		}
-		for (int i = 0; i < C.dm.length(); i++)
+		for (int i = 0; i < C.length(); i++)
 		{
 			for (int j = 0; j < vcols; j++)
 			{
-				writer << "Log_Conditional_Prob_" << i << "_" << j << "=" << cond[i][j] << endl;
+				writer << "Log_Conditional_Prob_" << i << "_" << j << "=" << cond(i, j) << endl;
 			}
 		}
 		writer << endl;

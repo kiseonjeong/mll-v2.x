@@ -2,11 +2,17 @@ namespace nml
 {
 	template<const unsigned int N> ndmatrix<N>::ndmatrix()
 	{
-		// Do nothing
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
 	}
 
 	template<const unsigned int N> ndmatrix<N>::ndmatrix(const dim& di)
 	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
 		// Check a dimension value
 		assert(di.N == N);
 
@@ -16,6 +22,10 @@ namespace nml
 
 	template<const unsigned int N> ndmatrix<N>::ndmatrix(const dim& di, const double val)
 	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
 		// Check a dimension value
 		assert(di.N == N);
 
@@ -28,12 +38,20 @@ namespace nml
 
 	template<const unsigned int N> ndmatrix<N>::ndmatrix(const ndarray<double, N>& obj)
 	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
 		// Copy the object
 		copyObject(obj);
 	}
 
 	template<const unsigned int N> ndmatrix<N>::ndmatrix(const ndmatrix<N>& obj)
 	{
+		// Set the number type flag
+		nflag = true;
+		cflag = false;
+
 		// Clone the object
 		*this = obj;
 	}
@@ -49,6 +67,12 @@ namespace nml
 		copyObject(obj);
 
 		return *this;
+	}
+
+	template<const unsigned int N> void ndmatrix<N>::operator=(const double& val)
+	{
+		// Set the array
+		set(val);
 	}
 
 	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::operator+(const ndmatrix<N>& mat) const

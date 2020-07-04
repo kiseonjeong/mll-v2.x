@@ -49,6 +49,7 @@ namespace nml
 		// Operators
 	public:
 		algmat& operator=(const algmat& obj);
+		void operator=(const double& val);			// data setting operator
 		const double& operator()(const int idx) const;			// data access operator (read)
 		double& operator()(const int idx);			// data access operator (write)
 		const double& operator()(const int idx0, const int idx1) const;			// data access operator (read)

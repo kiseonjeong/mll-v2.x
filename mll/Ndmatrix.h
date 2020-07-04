@@ -37,7 +37,8 @@ namespace nml
 
 		// Operators
 	public:
-		ndmatrix& operator=(const ndmatrix& obj);
+		ndmatrix& operator=(const ndmatrix& obj);			// data copy operator
+		void operator=(const double& val);			// data setting operator
 		ndmatrix operator+(const ndmatrix& mat) const;
 		ndmatrix operator+(const double val) const;
 		ndmatrix& operator+=(const ndmatrix& mat);

@@ -18,8 +18,6 @@ namespace nml
 		void copy(const dim& di, const double* data) const;			// Copy a matrix
 		static ndmatrix<N + 1> append(const std::vector<ndmatrix>& vmat);			// Append a matrix vector to N + 1 dimensional matrix
 		ndmatrix<N + 1> append(const ndmatrix& mat) const;						// Append a matrix to N + 1 dimensional matrix
-		template <const unsigned int M> ndmatrix<M> reshape(const dim& di) const;			// Reshape a matrix
-		ndmatrix transpose(const dim& trd) const;			// Transpose a matrix
 		ndmatrix add(const ndmatrix& mat) const;			// Calculate an addition matrix
 		ndmatrix add(const double val) const;			// Calculate an addition matrix
 		ndmatrix sub(const ndmatrix& mat) const;			// Calculate a subtraction matrix
@@ -39,96 +37,6 @@ namespace nml
 	public:
 		ndmatrix& operator=(const ndmatrix& obj);			// data copy operator
 		void operator=(const double& val);			// data setting operator
-		ndmatrix operator+(const ndmatrix& mat) const;
-		ndmatrix operator+(const double val) const;
-		ndmatrix& operator+=(const ndmatrix& mat);
-		ndmatrix& operator+=(const double val);
-		friend ndmatrix operator+(const double val, const ndmatrix& mat)
-		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate an addition matrix
-			ndmatrix result(mat);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = val + result.ddata[i];
-			}
-
-			return result;
-		}
-		ndmatrix operator-(const ndmatrix& mat) const;
-		ndmatrix operator-(const double val) const;
-		ndmatrix& operator-=(const ndmatrix& mat);
-		ndmatrix& operator-=(const double val);
-		friend ndmatrix operator-(const double val, const ndmatrix& mat)
-		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate a subtraction matrix
-			ndmatrix result(mat);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = val - result.ddata[i];
-			}
-
-			return result;
-		}
-		ndmatrix operator*(const ndmatrix& mat) const;
-		ndmatrix operator*(const double val) const;
-		ndmatrix& operator*=(const ndmatrix& mat);
-		ndmatrix& operator*=(const double val);
-		friend ndmatrix operator*(const double val, const ndmatrix& mat)
-		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Calculate a multiplication matrix
-			ndmatrix result(mat);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = val * result.ddata[i];
-			}
-
-			return result;
-		}
-		ndmatrix operator/(const ndmatrix& mat) const;
-		ndmatrix operator/(const double val) const;
-		ndmatrix& operator/=(const ndmatrix& mat);
-		ndmatrix& operator/=(const double val);
-		friend ndmatrix operator/(const double val, const ndmatrix& mat)
-		{
-			// Check a status
-			assert(mat.empty() == false);
-			for (int i = 0; i < mat.tlen; i++)
-			{
-				assert(mat.ddata[i] != 0.0);
-			}
-
-			// Calculate a division matrix
-			ndmatrix result(mat);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = val / result.ddata[i];
-			}
-
-			return result;
-		}
-		friend ndmatrix operator-(const ndmatrix& mat)
-		{
-			// Check a status
-			assert(mat.empty() == false);
-
-			// Convert a sign on the matrix
-			ndmatrix result(mat);
-			for (int i = 0; i < result.tlen; i++)
-			{
-				result.ddata[i] = -result.ddata[i];
-			}
-
-			return result;
-		}
 
 		// Constructors & Destructor
 	public:
@@ -145,9 +53,7 @@ namespace nml
 
 		// Functions
 	private:
-		void calculateWidthstep(ndarray<int, 1>& nds, const dim& dm, const int d, const int cstep) const;			// Calculate N dimensional width steps
-		void getTransIndices(const ndarray<int, 1>& nds, const dim& dm, const dim& trd, const int d, const int cstep, int addr, std::vector<int>& indices) const;			// Get all indices for transpose
-		void getBroadcastIndices(const ndarray<int, 1>& nds, const dim& dm, const int d, const int s, const int cstep, int addr, std::vector<int>& indices) const;			// Get all indices for broadcasting
+
 
 	};
 

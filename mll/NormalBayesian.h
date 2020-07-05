@@ -31,7 +31,7 @@ namespace mll
 		// Variables
 	private:
 		nml::algmat prior;			// prior probability
-		nml::ndarray<int, 1> count;			// count matrix
+		nml::ndmatrix<1> count;			// count matrix
 		nml::ndmatrix<3> mean;			// mean matrix
 		nml::ndmatrix<3> cov;			// covariance matrix
 		nml::ndmatrix<3> icov;			// inverse covariance matrix

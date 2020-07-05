@@ -13,6 +13,7 @@
 #include "Numem.h"
 #include "Ndimension.h"
 #include "Ndarray.h"
+#include "1darray.h"
 #include "Ndmatrix.h"
 #include "Msize.h"
 #include "Algmat.h"

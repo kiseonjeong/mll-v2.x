@@ -61,7 +61,7 @@ namespace mll
 	inline void KNN::copyObject(const object& obj)
 	{
 		// Do down casting
-		KNN* _obj = (KNN*)&obj;
+		const KNN* _obj = static_cast<const KNN*>(&obj);
 
 		// Copy the parameters
 		K = _obj->K;

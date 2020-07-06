@@ -39,11 +39,10 @@ namespace nml
 		friend ndarray operator+(const double val, const ndarray& mat)
 		{
 			// Check the check flag
-			bool& _cflag = const_cast<bool&>(mat.cflag);
-			if (_cflag == true)
+			if (mat.cflag == true)
 			{
-				mat.setArrayType();
-				_cflag = false;
+				mat.checkArrayType();
+				mat.cflag = false;
 			}
 
 			// Check the type flag
@@ -73,11 +72,10 @@ namespace nml
 		friend ndarray operator-(const double val, const ndarray& mat)
 		{
 			// Check the check flag
-			bool& _cflag = const_cast<bool&>(mat.cflag);
-			if (_cflag == true)
+			if (mat.cflag == true)
 			{
-				mat.setArrayType();
-				_cflag = false;
+				mat.checkArrayType();
+				mat.cflag = false;
 			}
 
 			// Check the type flag
@@ -107,11 +105,10 @@ namespace nml
 		friend ndarray operator*(const double val, const ndarray& mat)
 		{
 			// Check the check flag
-			bool& _cflag = const_cast<bool&>(mat.cflag);
-			if (_cflag == true)
+			if (mat.cflag == true)
 			{
-				mat.setArrayType();
-				_cflag = false;
+				mat.checkArrayType();
+				mat.cflag = false;
 			}
 
 			// Check the type flag
@@ -141,11 +138,10 @@ namespace nml
 		friend ndarray operator/(const double val, const ndarray& mat)
 		{
 			// Check the check flag
-			bool& _cflag = const_cast<bool&>(mat.cflag);
-			if (_cflag == true)
+			if (mat.cflag == true)
 			{
-				mat.setArrayType();
-				_cflag = false;
+				mat.checkArrayType();
+				mat.cflag = false;
 			}
 
 			// Check the type flag
@@ -193,8 +189,8 @@ namespace nml
 		int tidx;			// total index
 		int tlen;			// total length
 		var* tdata;			// total data
-		bool nflag;			// number type flag
-		bool cflag;			// type check flag
+		mutable bool nflag;			// number type flag
+		mutable bool cflag;			// type check flag
 
 		// Functions
 	protected:
@@ -202,7 +198,7 @@ namespace nml
 		virtual inline void copyObject(const ndarray& obj);			// Copy the object
 		virtual inline void clearObject();			// Clear the object
 		void widthStep();			// Calculate a width step
-		void setArrayType() const;			// Set the array type
+		void checkArrayType() const;			// Set the array type
 		void calculateWidthstep(ndarray<int, 1>& nds, const dim& dm, const int d, const int cstep) const;			// Calculate N dimensional width steps
 		void getTransIndices(const ndarray<int, 1>& nds, const dim& dm, const dim& trd, const int d, const int cstep, int addr, std::vector<int>& indices) const;			// Get all indices for transpose
 		void getBroadcastIndices(const ndarray<int, 1>& nds, const dim& dm, const int d, const int s, const int cstep, int addr, std::vector<int>& indices) const;			// Get all indices for broadcasting

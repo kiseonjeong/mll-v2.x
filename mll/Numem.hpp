@@ -41,9 +41,6 @@ namespace nml
 
 	template<typename var> numem<var>& numem<var>::operator=(const numem& obj)
 	{
-		// Clear the object
-		clearObject();
-
 		// Set an object
 		setObject();
 

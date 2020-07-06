@@ -69,11 +69,10 @@ namespace nml
 		assert(idx >= 0 && idx < dlen);
 
 		// Set a 1 dimensional index
-		ndarray<var, N - 1>& _subm = const_cast<ndarray<var, N - 1>&>(subm);
-		_subm.subdata(&ddata[addr], idx);
+		subarr.subdata(&ddata[addr], idx);
 
 		// Get a sub-dimensional array
-		return subm;
+		return subarr;
 	}
 
 	template<typename var, const unsigned int N> ndarray<var, N - 1>& ndarray<var, N>::operator[](const int idx)
@@ -83,10 +82,10 @@ namespace nml
 		assert(idx >= 0 && idx < dlen);
 
 		// Set a 1 dimensional index
-		subm.subdata(&ddata[addr], idx);
+		subarr.subdata(&ddata[addr], idx);
 
 		// Get a sub-dimensional array
-		return subm;
+		return subarr;
 	}
 
 	template<typename var, const unsigned int N> const var& ndarray<var, N>::operator()(const int idx) const
@@ -110,11 +109,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const ndarray<var, N>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -132,11 +130,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator+(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -154,11 +151,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator+=(const ndarray<var, N>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -178,11 +174,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator+=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -202,11 +197,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const ndarray<var, N>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -224,11 +218,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator-(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -246,11 +239,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator-=(const ndarray<var, N>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -270,11 +262,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator-=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -294,11 +285,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const ndarray<var, N>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -316,11 +306,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator*(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -338,11 +327,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator*=(const ndarray<var, N>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -362,11 +350,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator*=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -386,11 +373,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const ndarray<var, N>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -408,11 +394,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::operator/(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -430,11 +415,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator/=(const ndarray<var, N>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -454,11 +438,10 @@ namespace nml
 	template<typename var, const unsigned int N> ndarray<var, N>& ndarray<var, N>::operator/=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -590,7 +573,7 @@ namespace nml
 		}
 
 		// Set sub dimensional data
-		subm.subdim(sdi, tdata, didx);
+		subarr.subdim(sdi, tdata, didx);
 	}
 
 	template<typename var, const unsigned int N> inline void ndarray<var, N>::create(const dim& di, const var& val)
@@ -728,7 +711,7 @@ namespace nml
 		}
 
 		// Set sub dimensional data
-		subm.subdim(sdi, tdata, this->didx);
+		subarr.subdim(sdi, tdata, this->didx);
 	}
 
 	template<typename var, const unsigned int N> void ndarray<var, N>::subdata(var* ddata, const int tidx)
@@ -740,7 +723,7 @@ namespace nml
 		this->tidx = tidx;
 	}
 
-	template<typename var, const unsigned int N> void ndarray<var, N>::setArrayType() const
+	template<typename var, const unsigned int N> void ndarray<var, N>::checkArrayType() const
 	{
 		// Check an array type
 		string varName = typeid(tdata[0]).name();
@@ -749,11 +732,11 @@ namespace nml
 			varName == "int" || varName == "unsigned int" ||
 			varName == "float" || varName == "double")
 		{
-			const_cast<bool&>(nflag) = true;
+			nflag = true;
 		}
 		else
 		{
-			const_cast<bool&>(nflag) = false;
+			nflag = false;
 		}
 	}
 

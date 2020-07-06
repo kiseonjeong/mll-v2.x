@@ -58,13 +58,14 @@ namespace mll
 	void normalbayes::copyObject(const object& obj)
 	{
 		// Do down casting
-		normalbayes* _obj = (normalbayes*)&obj;
+		const normalbayes* _obj = static_cast<const normalbayes*>(&obj);
 
 		// Copy the parameters
 		vrows = _obj->vrows;
 		vcols = _obj->vcols;
 
 		// Copy the memories
+		prior = _obj->prior;
 		count = _obj->count;
 		mean = _obj->mean;
 		cov = _obj->cov;
@@ -75,6 +76,7 @@ namespace mll
 	void normalbayes::clearObject()
 	{
 		// Clear the memories
+		prior.release();
 		count.release();
 		mean.release();
 		cov.release();

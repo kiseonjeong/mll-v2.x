@@ -90,7 +90,7 @@ namespace mll
 	inline void mlldataset::copyObject(const object& obj)
 	{
 		// Do down casting
-		mlldataset* _obj = (mlldataset*)&obj;
+		const mlldataset* _obj = static_cast<const mlldataset*>(&obj);
 
 		// Copy the parameters
 		_dimension = _obj->_dimension;

@@ -101,11 +101,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -123,11 +122,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator+(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -145,11 +143,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator+=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -169,11 +166,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator+=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -193,11 +189,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -215,11 +210,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator-(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -237,11 +231,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator-=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -261,11 +254,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator-=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -285,11 +277,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -307,11 +298,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator*(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -329,11 +319,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator*=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -353,11 +342,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator*=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -377,11 +365,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const ndarray<var, 1>& mat) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -399,11 +386,10 @@ namespace nml
 	template<typename var> ndarray<var, 1> ndarray<var, 1>::operator/(const double val) const
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -421,11 +407,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator/=(const ndarray<var, 1>& mat)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -445,11 +430,10 @@ namespace nml
 	template<typename var> ndarray<var, 1>& ndarray<var, 1>::operator/=(const double val)
 	{
 		// Check the check flag
-		bool& _cflag = const_cast<bool&>(cflag);
-		if (_cflag == true)
+		if (cflag == true)
 		{
-			setArrayType();
-			_cflag = false;
+			checkArrayType();
+			cflag = false;
 		}
 
 		// Check the type flag
@@ -693,7 +677,7 @@ namespace nml
 		this->tidx = tidx;
 	}
 
-	template<typename var> void ndarray<var, 1>::setArrayType() const
+	template<typename var> void ndarray<var, 1>::checkArrayType() const
 	{
 		// Check an array type
 		string varName = typeid(tdata[0]).name();
@@ -702,11 +686,11 @@ namespace nml
 			varName == "int" || varName == "unsigned int" ||
 			varName == "float" || varName == "double")
 		{
-			const_cast<bool&>(nflag) = true;
+			nflag = true;
 		}
 		else
 		{
-			const_cast<bool&>(nflag) = false;
+			nflag = false;
 		}
 	}
 

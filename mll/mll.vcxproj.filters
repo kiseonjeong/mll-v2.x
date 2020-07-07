@@ -51,6 +51,9 @@
     <ClInclude Include="LogisticRegression.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="AdaptiveBoosting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +81,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="LogisticRegression.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="AdaptiveBoosting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

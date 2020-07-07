@@ -301,6 +301,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdaptiveBoosting.h" />
     <ClInclude Include="DistanceMeasure.h" />
     <ClInclude Include="KNearestNeighbor.h" />
     <ClInclude Include="LogisticRegression.h" />
@@ -314,6 +315,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AdaptiveBoosting.cpp" />
     <ClCompile Include="DistanceMeasure.cpp" />
     <ClCompile Include="KNearestNeighbor.cpp" />
     <ClCompile Include="LogisticRegression.cpp" />

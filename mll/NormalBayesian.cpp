@@ -35,12 +35,6 @@ namespace mll
 
 	normalbayes& normalbayes::operator=(const normalbayes& obj)
 	{
-		// Clear the object
-		clearObject();
-
-		// Set an object
-		setObject();
-
 		// Copy the object
 		copyObject(obj);
 

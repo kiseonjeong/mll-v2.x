@@ -10,6 +10,7 @@
 #include "KNearestNeighbor.h"
 #include "NaiveBayesian.h"
 #include "NormalBayesian.h"
+#include "AdaptiveBoosting.h"
 #include "LogisticRegression.h"
 
 #endif

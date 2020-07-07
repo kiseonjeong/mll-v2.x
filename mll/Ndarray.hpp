@@ -529,7 +529,6 @@ namespace nml
 			step = 1;
 			tidx = 0;
 			tlen = 0;
-			nflag = false;
 
 			// Initialize the memories
 			ddata = nullptr;

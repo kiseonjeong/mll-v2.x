@@ -303,6 +303,7 @@
   <ItemGroup>
     <ClInclude Include="DistanceMeasure.h" />
     <ClInclude Include="KNearestNeighbor.h" />
+    <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="mll.hpp" />
     <ClInclude Include="Mllclassifier.h" />
     <ClInclude Include="Mlldataset.h" />
@@ -315,6 +316,7 @@
   <ItemGroup>
     <ClCompile Include="DistanceMeasure.cpp" />
     <ClCompile Include="KNearestNeighbor.cpp" />
+    <ClCompile Include="LogisticRegression.cpp" />
     <ClCompile Include="Mllclassifier.cpp" />
     <ClCompile Include="Mlldataset.cpp" />
     <ClCompile Include="Mllutility.cpp" />

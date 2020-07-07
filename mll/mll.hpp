@@ -10,5 +10,6 @@
 #include "KNearestNeighbor.h"
 #include "NaiveBayesian.h"
 #include "NormalBayesian.h"
+#include "LogisticRegression.h"
 
 #endif

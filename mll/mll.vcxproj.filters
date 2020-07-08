@@ -54,6 +54,9 @@
     <ClInclude Include="AdaptiveBoosting.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Kernel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -84,6 +87,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="AdaptiveBoosting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

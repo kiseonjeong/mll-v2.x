@@ -303,6 +303,7 @@
   <ItemGroup>
     <ClInclude Include="AdaptiveBoosting.h" />
     <ClInclude Include="DistanceMeasure.h" />
+    <ClInclude Include="Kernel.h" />
     <ClInclude Include="KNearestNeighbor.h" />
     <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="mll.hpp" />
@@ -317,6 +318,7 @@
   <ItemGroup>
     <ClCompile Include="AdaptiveBoosting.cpp" />
     <ClCompile Include="DistanceMeasure.cpp" />
+    <ClCompile Include="Kernel.cpp" />
     <ClCompile Include="KNearestNeighbor.cpp" />
     <ClCompile Include="LogisticRegression.cpp" />
     <ClCompile Include="Mllclassifier.cpp" />

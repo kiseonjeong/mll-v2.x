@@ -11,6 +11,7 @@
 #include "NaiveBayesian.h"
 #include "NormalBayesian.h"
 #include "AdaptiveBoosting.h"
+#include "Kernel.h"
 #include "LogisticRegression.h"
 
 #endif

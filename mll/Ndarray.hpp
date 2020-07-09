@@ -140,7 +140,7 @@ namespace nml
 		if (nflag == true)
 		{
 			// Calculate an addition matrix
-			return add(mat);
+			return add(val);
 		}
 		else
 		{

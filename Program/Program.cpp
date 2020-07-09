@@ -7,6 +7,7 @@
 void test_knn(string, string);
 void test_naivebayes(string, string);
 void test_normalbayes(string, string);
+void test_svm(string, string);
 void test_adaboost(string, string);
 void test_logitmodel(string, string);
 
@@ -15,7 +16,8 @@ int _tmain(int argc, _TCHAR* argv[])
 // 	test_knn("..\\..\\dataset\\knn\\datingTestSet.txt", "..\\..\\dataset\\knn\\datingTestSet2.txt");
 // 	test_naivebayes("..\\..\\dataset\\bys\\iris_train.txt", "..\\..\\dataset\\bys\\iris_test.txt");
 // 	test_normalbayes("..\\..\\dataset\\bys\\iris_train.txt", "..\\..\\dataset\\bys\\iris_test.txt");
-	test_adaboost("..\\..\\dataset\\adaboost\\horseColicTraining2.txt", "..\\..\\dataset\\adaboost\\horseColicTest2.txt");
+//	test_svm("..\\..\\dataset\\svm\\testSetRBF.txt", "..\\..\\dataset\\svm\\testSetRBF2.txt");
+//	test_adaboost("..\\..\\dataset\\adaboost\\horseColicTraining2.txt", "..\\..\\dataset\\adaboost\\horseColicTest2.txt");
 // 	test_logitmodel("..\\..\\dataset\\lgr\\testSet.txt", "..\\..\\dataset\\lgr\\testSet.txt");
 
 	return 0;
@@ -134,6 +136,55 @@ void test_normalbayes(string trainPath, string testPath)
 	for (int i = 0; i < testset[0].rows; i++)
 	{
 		double response = nb.predict(testset[0].submat(i));
+		if (response != testset[1][i][0])
+		{
+			testMissed++;
+		}
+	}
+
+	// Show the classification results
+	cout << "Error Rate on Trainset : " << (double)trainMissed / trainset[0].rows << endl;
+	cout << "Error Rate on Testset : " << (double)testMissed / testset[0].rows << endl;
+}
+
+// The Support Vector Machine Classifier
+void test_svm(string trainPath, string testPath)
+{
+	// Load the dataset
+	mlldataset trainset(trainPath, "\t", LABEL_REAR);
+	mlldataset testset(testPath, "\t", LABEL_REAR);
+
+	// Set a train condition
+	const double C = 50.0;
+	const double toler = 0.0001;
+	const int maxIter = 30000;
+// 	kernel& kn = linear_kernel();
+// 	kernel& kn = polynomial_kernel(2.0, 1.0);
+// 	kernel& kn = tanh_kernel(0.1, -0.1);
+	kernel& kn = rbf_kernel(1.0);
+
+	// Train the dataset
+	SVM svm(C, toler, maxIter, kn);
+	svm.train(trainset);
+	svm.save("..\\svm_result.ini");
+// 	svm.open("..\\svm_result.ini");
+
+	// Get a response on the train dataset
+	int trainMissed = 0;
+	for (int i = 0; i < trainset[0].rows; i++)
+	{
+		double response = svm.predict(trainset[0].submat(i));
+		if (response != trainset[1][i][0])
+		{
+			trainMissed++;
+		}
+	}
+
+	// Get a response on the test dataset
+	int testMissed = 0;
+	for (int i = 0; i < testset[0].rows; i++)
+	{
+		double response = svm.predict(testset[0].submat(i));
 		if (response != testset[1][i][0])
 		{
 			testMissed++;

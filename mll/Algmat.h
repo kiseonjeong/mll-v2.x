@@ -45,6 +45,20 @@ namespace nml
 		algmat cof() const;			// Get a cofactor matrix
 		algmat inv() const;			// Get an inverse matrix
 		const double det() const;			// Get a determinant value
+		algmat add(const algmat& mat) const { return ndarray<double, 2>::add(mat); }			// Calculate an addition matrix
+		algmat add(const double val) const { return ndarray<double, 2>::add(val); }			// Calculate an addition matrix
+		algmat sub(const algmat& mat) const { return ndarray<double, 2>::sub(mat); }			// Calculate a subtraction matrix
+		algmat sub(const double val) const { return ndarray<double, 2>::sub(val); }			// Calculate a subtraction matrix
+		algmat mul(const algmat& mat) const { return ndarray<double, 2>::mul(mat); }			// Calculate a multiplication matrix
+		algmat mul(const double val) const { return ndarray<double, 2>::mul(val); }			// Calculate a multiplication matrix
+		algmat div(const algmat& mat) const { return ndarray<double, 2>::div(mat); }			// Calculate a division matrix
+		algmat div(const double val) const { return ndarray<double, 2>::div(val); }			// Calculate a division matrix
+		static algmat log(const algmat& mat) { return ndmatrix<2>::log(mat); };			// Calculate a log matrix
+		static algmat log(const algmat& mat, const double b) { return ndmatrix<2>::log(mat, b); };			// Calculate a log matrix
+		static algmat exp(const algmat& mat) { return ndmatrix<2>::exp(mat); };			// Calculate an exponential matrix
+		static algmat pow(const algmat& mat, const double p) { return ndmatrix<2>::pow(mat, p); };			// Calculate an exponential matrix
+		static algmat sqrt(const algmat& mat) { return ndmatrix<2>::sqrt(mat); };			// Calculate an exponential matrix
+		static algmat abs(const algmat& mat) { return ndmatrix<2>::abs(mat); };			// Calculate an exponential matrix
 
 		// Operators
 	public:
@@ -54,13 +68,35 @@ namespace nml
 		double& operator()(const int idx);			// data access operator (write)
 		const double& operator()(const int idx0, const int idx1) const;			// data access operator (read)
 		double& operator()(const int idx0, const int idx1);			// data access operator (write)
+		algmat operator+(const algmat& mat) const { return ndarray<double, 2>::add(mat); }
+		algmat operator+(const double val) const { return ndarray<double, 2>::add(val); }
+		friend algmat operator+(const double val, const algmat& mat) { return val + ndarray<double, 2>(mat); }
+		algmat& operator+=(const algmat& mat) { *this = ndarray<double, 2>::add(mat); return *this; }
+		algmat& operator+=(const double val) { *this = ndarray<double, 2>::add(val); return *this; }
+		algmat operator-(const algmat& mat) const { return ndarray<double, 2>::sub(mat); }
+		algmat operator-(const double val) const { return ndarray<double, 2>::sub(val); }
+		friend algmat operator-(const double val, const algmat& mat) { return val - ndarray<double, 2>(mat); }
+		algmat& operator-=(const algmat& mat) { *this = ndarray<double, 2>::sub(mat); return *this; }
+		algmat& operator-=(const double val) { *this = ndarray<double, 2>::sub(val); return *this; }
+		algmat operator*(const algmat& mat) const { return ndarray<double, 2>::mul(mat); }
+		algmat operator*(const double val) const { return ndarray<double, 2>::mul(val); }
+		friend algmat operator*(const double val, const algmat& mat) { return val * ndarray<double, 2>(mat); }
+		algmat& operator*=(const algmat& mat) { *this = ndarray<double, 2>::mul(mat); return *this; }
+		algmat& operator*=(const double val) { *this = ndarray<double, 2>::mul(val); return *this; }
+		algmat operator/(const algmat& mat) const { return ndarray<double, 2>::div(mat); }
+		algmat operator/(const double val) const { return ndarray<double, 2>::div(val); }
+		friend algmat operator/(const double val, const algmat& mat) { return val / ndarray<double, 2>(mat); }
+		algmat& operator/=(const algmat& mat) { *this = ndarray<double, 2>::div(mat); return *this; }
+		algmat& operator/=(const double val) { *this = ndarray<double, 2>::div(val); return *this; }
 
 		// Constructors & Destructor
 	public:
 		algmat();
 		algmat(const msize& sz);
 		algmat(const msize& sz, const double val);
+		algmat(const ndarray<double, 1>& obj);
 		algmat(const ndarray<double, 2>& obj);
+		algmat(const ndmatrix<1>& obj);
 		algmat(const ndmatrix<2>& obj);
 		algmat(const algmat& obj);
 		~algmat();

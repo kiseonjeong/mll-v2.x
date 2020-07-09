@@ -10,8 +10,9 @@
 #include "KNearestNeighbor.h"
 #include "NaiveBayesian.h"
 #include "NormalBayesian.h"
-#include "AdaptiveBoosting.h"
 #include "Kernel.h"
+#include "SupportVectorMachine.h"
+#include "AdaptiveBoosting.h"
 #include "LogisticRegression.h"
 
 #endif

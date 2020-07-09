@@ -81,7 +81,7 @@ namespace nml
 		return _dm;
 	}
 
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::clone() const
+	template<const unsigned int N> const ndmatrix<N> ndmatrix<N>::clone() const
 	{
 		// Check and clone the matrix
 		if (empty() == true)
@@ -128,7 +128,7 @@ namespace nml
 		}
 	}
 
-	template<const unsigned int N> ndmatrix<N + 1> ndmatrix<N>::append(const std::vector<ndmatrix>& vmat)
+	template<const unsigned int N> const ndmatrix<N + 1> ndmatrix<N>::append(const std::vector<ndmatrix>& vmat)
 	{
 		// Check dimension information
 		assert(vmat.empty() == false);
@@ -166,7 +166,7 @@ namespace nml
 		return result;
 	}
 
-	template<const unsigned int N> ndmatrix<N + 1> ndmatrix<N>::append(const ndmatrix<N>& mat) const
+	template<const unsigned int N> const ndmatrix<N + 1> ndmatrix<N>::append(const ndmatrix<N>& mat) const
 	{
 		// Set a matrix vector
 		vector<ndmatrix<N>> vmat;
@@ -175,54 +175,6 @@ namespace nml
 
 		// Append a matrix
 		return append(vmat);
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::add(const ndmatrix<N>& mat) const
-	{
-		// Calculate an addition matrix
-		return *this + mat;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::add(const double val) const
-	{
-		// Calculate an addition matrix
-		return *this + val;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::sub(const ndmatrix<N>& mat) const
-	{
-		// Calculate a subtraction matrix
-		return *this - mat;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::sub(const double val) const
-	{
-		// Calculate a subtraction matrix
-		return *this - val;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::mul(const ndmatrix<N>& mat) const
-	{
-		// Calculate a multiplication matrix
-		return *this * mat;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::mul(const double val) const
-	{
-		// Calculate a multiplication matrix
-		return *this * val;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::div(const ndmatrix<N>& mat) const
-	{
-		// Calculate a division matrix
-		return *this / mat;
-	}
-
-	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::div(const double val) const
-	{
-		// Calculate a division matrix
-		return *this / val;
 	}
 
 	template<const unsigned int N> ndmatrix<N> ndmatrix<N>::log(const ndmatrix<N>& mat)

@@ -163,8 +163,8 @@ namespace mll
 	void polynomial_kernel::set(const double deg, const double cons)
 	{
 		// Set the kernel parameters
-		this->_deg = deg;
-		this->_cons = cons;
+		_deg = deg;
+		_cons = cons;
 	}
 
 	void polynomial_kernel::set(const double deg, const double cons, const double th1, const double th2, const double sig)
@@ -327,7 +327,7 @@ namespace mll
 	void rbf_kernel::set(const double sig)
 	{
 		// Set the kernel parameters
-		this->_sig = sig;
+		_sig = sig;
 	}
 
 	void rbf_kernel::set(const double deg, const double cons, const double th1, const double th2, const double sig)

@@ -38,12 +38,12 @@ namespace mll
 
 		// Variables
 	protected:
-		kntype _type;			// Kernel type
-		double _deg;			// Degree for the polynomial kernel
-		double _cons;			// Constant Value for the polynomial kernel
-		double _th1;			// Threshold 1 for the hyperbolic tangent kernel
-		double _th2;			// Threshold 2 for the hyperbolic tangent kernel
-		double _sig;			// Sigma parameter for the RBF kernel
+		kntype _type;			// kernel type
+		double _deg;			// degree for the polynomial kernel
+		double _cons;			// constant Value for the polynomial kernel
+		double _th1;			// threshold 1 for the hyperbolic tangent kernel
+		double _th2;			// threshold 2 for the hyperbolic tangent kernel
+		double _sig;			// sigma parameter for the RBF kernel
 
 		// Functions
 	protected:

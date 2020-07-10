@@ -849,7 +849,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::add(const ndarray<var, 1>& mat) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::add(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -945,7 +945,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::add(const double val) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::add(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -960,7 +960,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::sub(const ndarray<var, 1>& mat) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::sub(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1056,7 +1056,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::sub(const double val) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::sub(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1071,7 +1071,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::mul(const ndarray<var, 1>& mat) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::mul(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1167,7 +1167,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::mul(const double val) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::mul(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1182,7 +1182,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::div(const ndarray<var, 1>& mat) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::div(const ndarray<var, 1>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1282,7 +1282,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var> ndarray<var, 1> ndarray<var, 1>::div(const double val) const
+	template<typename var> ndarray<var, 1> inline ndarray<var, 1>::div(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);

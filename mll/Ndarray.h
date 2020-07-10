@@ -203,14 +203,14 @@ namespace nml
 		void calculateWidthstep(ndarray<int, 1>& nds, const dim& dm, const int d, const int cstep) const;			// Calculate N dimensional width steps
 		void getTransIndices(const ndarray<int, 1>& nds, const dim& dm, const dim& trd, const int d, const int cstep, int addr, std::vector<int>& indices) const;			// Get all indices for transpose
 		void getBroadcastIndices(const ndarray<int, 1>& nds, const dim& dm, const int d, const int s, const int cstep, int addr, std::vector<int>& indices) const;			// Get all indices for broadcasting
-		ndarray add(const ndarray& mat) const;			// Calculate an addition matrix
-		ndarray add(const double val) const;			// Calculate an addition matrix
-		ndarray sub(const ndarray& mat) const;			// Calculate a subtraction matrix
-		ndarray sub(const double val) const;			// Calculate a subtraction matrix
-		ndarray mul(const ndarray& mat) const;			// Calculate a multiplication matrix
-		ndarray mul(const double val) const;			// Calculate a multiplication matrix
-		ndarray div(const ndarray& mat) const;			// Calculate a division matrix
-		ndarray div(const double val) const;			// Calculate a division matrix
+		inline ndarray add(const ndarray& mat) const;			// Calculate an addition matrix
+		inline ndarray add(const double val) const;			// Calculate an addition matrix
+		inline ndarray sub(const ndarray& mat) const;			// Calculate a subtraction matrix
+		inline ndarray sub(const double val) const;			// Calculate a subtraction matrix
+		inline ndarray mul(const ndarray& mat) const;			// Calculate a multiplication matrix
+		inline ndarray mul(const double val) const;			// Calculate a multiplication matrix
+		inline ndarray div(const ndarray& mat) const;			// Calculate a division matrix
+		inline ndarray div(const double val) const;			// Calculate a division matrix
 
 	};
 }

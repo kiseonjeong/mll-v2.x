@@ -895,7 +895,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::add(const ndarray<var, N>& mat) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::add(const ndarray<var, N>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -991,7 +991,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::add(const double val) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::add(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1006,7 +1006,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::sub(const ndarray<var, N>& mat) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::sub(const ndarray<var, N>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1102,7 +1102,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::sub(const double val) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::sub(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1117,7 +1117,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::mul(const ndarray<var, N>& mat) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::mul(const ndarray<var, N>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1213,7 +1213,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::mul(const double val) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::mul(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1228,7 +1228,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::div(const ndarray<var, N>& mat) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::div(const ndarray<var, N>& mat) const
 	{
 		// Check a status
 		assert(empty() == false);
@@ -1328,7 +1328,7 @@ namespace nml
 		return result;
 	}
 
-	template<typename var, const unsigned int N> ndarray<var, N> ndarray<var, N>::div(const double val) const
+	template<typename var, const unsigned int N> inline ndarray<var, N> ndarray<var, N>::div(const double val) const
 	{
 		// Check a status
 		assert(empty() == false);

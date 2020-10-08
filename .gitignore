@@ -11,3 +11,12 @@
 *.opensdf
 *.sdf
 *.suo
+*.user
+/.vs/
+/Debug-MDd/
+/Debug-MTd/
+/Release-MD/
+/Release-MT/
+/x64/
+/mll/**/
+/Program/**/
